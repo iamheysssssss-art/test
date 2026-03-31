@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>西門姐姐美容美體 - 專業美容師課程教案手冊</title>
+    <!-- 引入 Tailwind CSS (負責排版與顏色) -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 引入 Lucide Icons (負責圖示) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; }
+    </style>
+</head>
+<body class="min-h-screen bg-[#FFFBFB] text-gray-800 selection:bg-rose-200">
+
+    <!-- Navbar -->
+    <nav class="fixed top-0 w-full bg-white/80 backdrop-blur-md z-50 border-b border-rose-100 shadow-sm">
+        <div class="max-w-4xl mx-auto px-6 py-4 flex items-center justify-center">
+            <div class="flex items-center gap-2 text-rose-600 font-bold text-xl tracking-wider">
+                <i data-lucide="flower-2" class="w-6 h-6"></i>
+                西門姐姐美容美體
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-28 pb-16 px-6 text-center bg-gradient-to-b from-rose-50 to-[#FFFBFB]">
+        <div class="max-w-3xl mx-auto">
+            <div class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white text-rose-500 font-medium text-sm shadow-sm mb-6 border border-rose-100">
+                <i data-lucide="book-open" class="w-4 h-4"></i>
+                內部專屬學習資源
+            </div>
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-800 mb-4 leading-tight">
+                專業美容師 <br class="md:hidden" />
+                <span class="text-rose-500">課程教案手冊</span>
+            </h1>
+            <p class="text-gray-500 text-base md:text-lg leading-relaxed max-w-xl mx-auto">
+                歡迎來到西門姐姐團隊！為了確保每一位顧客都能享受最頂級、一致的服務體驗，請隨時參考此 SOP 指南，掌握各項流程與儀器注意事項。
+            </p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="max-w-3xl mx-auto px-4 pb-24">
+        
+        <!-- Tabs -->
+        <div class="flex p-1 bg-gray-100/80 rounded-2xl mb-8 shadow-inner">
+            <button id="tab-body" class="tab-btn flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-sm md:text-base transition-all bg-white text-rose-600 shadow-md">
+                <i data-lucide="flower-2" class="w-5 h-5"></i>
+                身體經典舒壓系列
+            </button>
+            <button id="tab-face" class="tab-btn flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-sm md:text-base transition-all text-gray-500 hover:text-gray-700">
+                <i data-lucide="droplets" class="w-5 h-5"></i>
+                皮膚管理課程系列
+            </button>
+        </div>
+
+        <!-- List Section -->
+        <div class="space-y-4">
+            <div class="flex justify-between items-end mb-6 px-2">
+                <h2 id="section-title" class="text-xl font-bold text-gray-800">
+                    身體舒壓 SOP (共11項)
+                </h2>
+                <span class="text-sm text-gray-400">點擊展開詳細流程</span>
+            </div>
+
+            <div id="course-list">
+                <!-- 課程內容會由 JavaScript 動態生成注入於此 -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-rose-100 py-10 mt-auto">
+        <div class="max-w-4xl mx-auto px-6 text-center">
+            <i data-lucide="flower-2" class="w-8 h-8 text-rose-200 mx-auto mb-4"></i>
+            <h3 class="text-lg font-bold text-gray-800 mb-2">西門姐姐美容美體</h3>
+            <p class="text-gray-400 text-sm">
+                用專業與用心，傳遞最極致的服務體驗。<br/>
+                © 2024 Sister Ximen Beauty & Spa. 內部教育訓練專用。
+            </p>
+        </div>
+    </footer>
+
+    <!-- JavaScript 邏輯與資料 -->
+    <script>
+        // --- 資料區塊 ---
+        const bodyCourses = [
+          {
+            id: 'b1', title: '呵護你的背', duration: '30分',
+            steps: ['流程：玉刮 ＋ 手技 ＋ 儀器']
+          },
+          {
+            id: 'b2', title: '呵護妳的胸', duration: '20分',
+            steps: ['流程：純手技按摩', '時間分配：單邊 10 分鐘，共 20 分鐘']
+          },
+          {
+            id: 'b3', title: '精雕下半身', duration: '30分',
+            steps: ['流程：手技 ＋ 儀器', '時間分配：單邊 15 分鐘 (手技 10 分鐘 ＋ 儀器 5 分鐘)，完成後換邊操作。']
+          },
+          {
+            id: 'b4', title: '甜心蜜桃臀', duration: '20分',
+            steps: ['流程：手技 ＋ 儀器', '時間分配：單邊 10 分鐘 (手技 6 分鐘包含反腿與蛙腿 ＋ 儀器 4 分鐘)，完成後換邊操作。']
+          },
+          {
+            id: 'b5', title: '打造小蠻腰肚', duration: '30分',
+            steps: ['流程：手技 10 分鐘 ＋ 儀器 10 分鐘 ＋ 收尾手技 10 分鐘']
+          },
+          {
+            id: 'b6', title: '暖宫臍燭 SPA', duration: '30分',
+            steps: [
+              '贈送禮遇：課程開始即贈送「香薰眼罩」，讓客人閉目養神休息。',
+              '腹部按摩：純手技按摩腹部 12 分鐘。',
+              '臍燭舒緩：燒臍燭 8 分鐘同步舒緩肚子。',
+              '‼️ 注意：臍燭燃燒期間需剪 2-3 次灰燼，燒完結束時請務必口頭告知客人。',
+              '溫灸儀照光：照溫灸儀 10 分鐘 (需有溫熱感)。毛毯請蓋在腹部以下，肚子需直接照到艙外，並額外用一條大毛巾蓋起保暖。',
+              '頭部舒壓：照光同時進行頭部按摩 5 分鐘。',
+              '安撫收尾：移開太空艙後，於腹部安撫三圈完成收尾。'
+            ]
+          },
+          {
+            id: 'b7', title: '耳燭頭皮 SPA', duration: '30分',
+            steps: [
+              '聞香禮：植物嗅吸放鬆。',
+              '頭部舒壓：頭皮玉刮 5 分鐘 ＋ 純手技頭部按摩 5 分鐘。',
+              '耳燭與照燈：兩邊耳燭共 10 分鐘 (同時搭配按摩) ＋ 照黑能量儀 10 分鐘 (期間按摩背部的頭部 5 分鐘)。'
+            ]
+          },
+          {
+            id: 'b8', title: '眼額舒壓 SPA', duration: '20分+',
+            steps: [
+              '流程：卸洗 ＋ 手技眼部撥筋 ＋ RF 拉提 (共 20 分鐘)。',
+              '收尾：敷眼膜 ＋ 戴上蒸氣眼罩 (期間進行頭皮按摩 10 分鐘)。'
+            ]
+          },
+          {
+            id: 'b9', title: '薑艾火山石背部 SPA', duration: '依流程',
+            steps: [
+              '前置加熱：熱石與熱肩墊同時開始加熱。',
+              '‼️ 注意：兩者皆為 220V 電壓！熱肩墊需確實按下開關。',
+              '放鬆準備：鬆筋、勻油。',
+              '深層按摩：背部手技按摩 10 分鐘 ＋ 火山熱石刮背部 10 分鐘。',
+              '敷膜保暖：紗布 ＋ 敷膜 ＋ 立即蓋上專用塑膠袋膜 (一片，非保鮮膜，有現品)。敷膜水需使用有熱度的「艾草水」，保持水潤不要太乾。',
+              '熱敷與照燈：蓋上已預熱的熱肩墊 (上半身蓋毛巾，客人手放裡面防冷)。打開黑科技燈照射「腰部腎區」(溫暖有好處)。因肩膀已有熱墊繼續加熱，肩膀不需照燈。',
+              '頭皮舒壓：此時進行頭皮按摩 5 分鐘。',
+              '沉浸收尾：準備熱水毛巾，敷 10 分鐘後擦拭乾淨，請客人沉浸式休息，注意保暖。'
+            ]
+          },
+          {
+            id: 'b10', title: '喜馬拉雅鹽晶 淨化暖油 SPA', duration: '50/70分',
+            steps: [
+              '靜心啟動：敲一聲頌缽，帶領 2 次腹式呼吸 (吸氣肚子鼓起；吐氣嘴巴微開，氣吐到底肚子變平)。',
+              '背面療程：暖油能量滴灌 ➔ 背部喜馬拉雅鹽晶淨化 (7 分鐘背+腿) ➔ 背面暖油深層平衡按摩 (20 分鐘)。',
+              '正面療程：請客人翻至正面，先戴上溫熱眼罩深度釋壓 ➔ 正面喜馬拉雅鹽晶淨化 (7 分鐘上下半身) ➔ 正面暖油深層平衡按摩 (16 分鐘)。',
+              '課後茶點：療程後提供黑豆暖養茶 (5 顆黑豆泡茶) 與精品輕食盤。'
+            ]
+          },
+          {
+            id: 'b11', title: '熱肚核心雕 SPA', duration: '依流程',
+            steps: [
+              '課前準備 A：預熱熱敷墊 (‼️ 220V 電壓，記得按開關)。',
+              '課前準備 B：準備黑泥。挖一湯匙加少許水，微波高熱 1.5 分鐘。取出確認融化，未融化再加 30 秒 (用專門玻璃罐)。📍 注意：先放台車，要敷時再與熱導粉攪拌，以免乾掉。',
+              '課前準備 C/D：準備一杯熱開水備用；準備紗布 2 片、專用塑膠袋膜 1 片。',
+              '流程 1：按摩勻油 ➔ 熱 SPA 熱雕頭 10 分鐘 ➔ 熱 SPA 熱負壓 10 分鐘。',
+              '流程 2：肚子放上紗布。',
+              '流程 3：調和黑泥 (熱導粉 4 大匙 + 黑泥水充分攪拌呈流狀，太乾可加旁邊熱水) ➔ 均勻抹上肚子。',
+              '流程 4：立刻蓋塑膠袋 ➔ 立刻蓋熱敷墊 ➔ 蓋上毛巾或毯子。',
+              '流程 5：熱敷 10 分鐘 (體驗期贈延長 5 分鐘)。體驗期熱敷期間贈送頭皮排酸 10 分鐘。',
+              '流程 6：結束前準備熱水熱毛巾，拆除擦乾淨。',
+              '‼️ 預防過敏：課程要敷黑泥之前，請再抹一些按摩油打底。'
+            ]
+          }
+        ];
+
+        const faceCourses = [
+          {
+            id: 'f1', title: '仙女水光嫩肌', duration: '90分',
+            steps: [
+              '基礎清潔：基本卸妝、洗臉、去角質。',
+              '芙蓉霜按摩：共 3 次 (每次使用 10ml，約 12 分鐘)。',
+              '‼️ 第 1 次按摩後：使用「鏟皮儀」刮除。',
+              '‼️ 第 2、3 次按摩後：使用「刮板」刮除。',
+              '‼️ 第 3 次按摩需加入儀器 RF 提拉 (注意：RF 探頭不能停留在臉上，需持續移動，溫度控制在中間值)。',
+              '舒緩保養：安撫肌膚 ＋ 敷水光面膜 (12-15 分鐘，敷臉時按摩頭肩頸)。',
+              '收尾：拆除面膜，用「清水擦拭」以免乾後脫屑，最後上防曬潤色隔離霜。'
+            ]
+          },
+          {
+            id: 'f2', title: '小綠人 (奇肌養顏)', duration: '60分',
+            steps: [
+              '電壓注意：儀器使用 110V。',
+              '基礎清潔：卸妝、洗臉、去角質 ➔ 化妝水。',
+              '深層清潔：鏟皮儀全臉去除表面髒污。',
+              '導入：導入精華液 10 分鐘 (儀器強度 10)。',
+              '敷膜：依序放上化妝棉片 ➔ 紗布 ➔ 調和綠色面膜 (使用 1.5 包，包含頸部，嘴巴可不用)，共敷 10 分鐘。',
+              '收尾：卸掉擦拭乾淨，上保養化妝水、基因霜、隔離霜。'
+            ]
+          },
+          {
+            id: 'f3', title: 'O2 活氧泡泡洗 🫧', duration: '40分',
+            steps: [
+              '前置：卸妝 2 分鐘 ➔ 化妝棉沾水對折再對折放置眼睛。',
+              '活氧泡泡：全臉敷泡泡 3 分鐘 (嘴巴眼睛❌) ➔ 輕壓洗臉 7 分鐘。',
+              '粉刺軟化：鼻子敷黑頭倒出液 (用化妝棉) ➔ 全臉上去角質霜等待軟化 1 分鐘。(皮膚很薄的用金箔凝膠，不使用去角質霜)。',
+              '儀器操作：以去角質霜為介質推鏟皮儀 5 分鐘 ➔ 吸筆操作 5 分鐘。',
+              '‼️ 注意：吸筆器噴出的精華液 (含煙醯氨、胺基酸) 是保養品，儀器是幫助導入。',
+              '冰導入：上金箔凝膠 (不用多，旁邊備離子水隨時用滴管補充)，冰導入 8 分鐘。',
+              '敷膜：眼睛敷化妝棉 (對折) ➔ 全臉鋪紗布 ➔ 敷玫瑰軟膜 8 分鐘。',
+              '收尾：上精華液、隔離霜 1 分鐘。'
+            ]
+          },
+          {
+            id: 'f4', title: '粉刺修護', duration: '90分',
+            steps: ['流程：卸妝洗臉 ➔ 去角質 ➔ 臉部舒導 ➔ 清粉刺 ➔ 超聲波導入 ➔ 螺旋藻敷臉 ➔ 頭肩舒緩按摩。']
+          },
+          {
+            id: 'f5', title: '小金人', duration: '60分',
+            steps: ['流程：卸洗 ➔ 去角質 ➔ 超聲波導入 ➔ 金箔臉部舒導 ➔ 二次超聲波導入 ➔ 敷膠原 QQ 凍膜 ➔ 頭肩舒緩按摩。']
+          },
+          {
+            id: 'f6', title: '女神臉部排酸', duration: '45分',
+            steps: ['流程：卸洗 ➔ 去角質 ➔ 排酸棒臉部舒導 ➔ 敷水光面膜 ➔ 頭肩舒緩按摩。']
+          },
+          {
+            id: 'f7', title: '臉部撥筋瘦小臉', duration: '45分',
+            steps: ['流程：卸洗 ➔ 去角質 ➔ 化妝水 ➔ 按摩霜純手技按摩 20 分鐘 ➔ 敷凍膜 ➔ 卸掉擦拭 ➔ 上潤澤霜。']
+          },
+          {
+            id: 'f8', title: '日式水素美容', duration: '40分',
+            steps: [
+              '流程：卸洗 ➔ 化妝水 ➔ 水光乳超聲波儀導入 ➔ 敷太白石美白面膜 ➔ 吸氫氧機 30 分鐘。',
+              '注意：15 分鐘時需先拿下面膜，吸完氫氧機後，臉部柔膚上隔離霜。'
+            ]
+          },
+          {
+            id: 'f9', title: '臉部撥筋 ＋ 金箔按摩 ＋ 唇膜', duration: '60分',
+            steps: [
+              '基礎保養：卸洗 ➔ 去角質 ➔ 上一層芙蓉霜打底 ➔ 上一層黃金凝膠。',
+              '金箔準備：金箔 1.3 片，共剪 8 小片 (額頭 2 ＋ 鼻子 1 ＋ 下巴 1 ＋ 兩頰各 2 = 8 片)。',
+              '導入濕敷：黃金先按摩透入肌膚 (勿洗掉) ➔ 使用蠶絲面膜 ＋ 精華液稀釋濕敷 10 分鐘後打開。',
+              '撥筋提拉：使用 V 臉撥筋手法，用玻尿酸按摩霜手技 ＋ 心型刮板與銅撥筋棒充分撥筋提拉。',
+              '唇部保養：按摩唇部 3 分鐘 ＋ 敷唇膜 (到此階段共 40 分鐘。若無購買黃金項目則為 30 分鐘)。',
+              '照光敷膜：最後上水晶膠原 Q 膜 (此時唇膜持續敷著)。',
+              '‼️ 注意：同時照射光譜儀 (紅色) 15 分鐘，請注意電壓。',
+              '收尾：撕掉面膜 ➔ 清水清潔 ➔ 化妝水 ➔ 緊緻霜 ➔ 潤色隔離霜 (有一瓶子裡面是隔離霜)。'
+            ]
+          }
+        ];
+
+        // --- 渲染邏輯 ---
+        function renderList(tab) {
+            const data = tab === 'body' ? bodyCourses : faceCourses;
+            const container = document.getElementById('course-list');
+            
+            // 更新標題
+            document.getElementById('section-title').innerText = tab === 'body' 
+                ? '身體舒壓 SOP (共11項)' 
+                : '皮膚管理 SOP (共9項)';
+
+            // 產生 HTML
+            container.innerHTML = data.map(item => `
+                <div class="mb-4 bg-white rounded-2xl shadow-sm border border-rose-100 overflow-hidden transition-all duration-300">
+                    <button class="accordion-btn w-full px-6 py-5 flex items-center justify-between bg-white hover:bg-rose-50/50 transition-colors" data-id="${item.id}">
+                        <div class="flex items-center gap-4">
+                            <div class="bg-rose-100 p-2 rounded-full text-rose-600">
+                                <i data-lucide="sparkles" class="w-5 h-5"></i>
+                            </div>
+                            <div class="text-left">
+                                <h3 class="text-lg font-bold text-gray-800">${item.title}</h3>
+                                <div class="flex items-center text-rose-500 text-sm mt-1 font-medium">
+                                    <i data-lucide="clock" class="w-3.5 h-3.5 mr-1"></i>
+                                    ${item.duration}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="icon-container transform transition-transform duration-300 text-rose-300" id="icon-${item.id}">
+                            <i data-lucide="chevron-down" class="w-6 h-6"></i>
+                        </div>
+                    </button>
+
+                    <div class="accordion-content transition-all duration-500 ease-in-out max-h-0 opacity-0 overflow-hidden" id="content-${item.id}">
+                        <div class="p-6 pt-0 border-t border-rose-50 bg-rose-50/30">
+                            <ul class="space-y-3 mt-4">
+                                ${item.steps.map(step => {
+                                    const isWarning = step.includes('‼️') || step.includes('注意');
+                                    const formattedStep = step.replace(/‼️/g, '').replace(/📍/g, '📌');
+                                    return `
+                                        <li class="flex items-start gap-3 p-3 rounded-lg text-sm md:text-base leading-relaxed ${isWarning ? 'bg-red-50 text-red-800 border border-red-100' : 'text-gray-700'}">
+                                            ${isWarning 
+                                                ? `<i data-lucide="alert-circle" class="w-5 h-5 text-red-500 flex-shrink-0 mt-0.5"></i>`
+                                                : `<div class="w-1.5 h-1.5 rounded-full bg-rose-400 mt-2 flex-shrink-0"></div>`
+                                            }
+                                            <span>${formattedStep}</span>
+                                        </li>
+                                    `;
+                                }).join('')}
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+
+            // 重新初始化圖標
+            lucide.createIcons();
+
+            // 綁定手風琴展開/收合事件
+            document.querySelectorAll('.accordion-btn').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const id = this.getAttribute('data-id');
+                    const content = document.getElementById(`content-${id}`);
+                    const icon = document.getElementById(`icon-${id}`);
+                    const isOpen = content.classList.contains('max-h-[1000px]');
+
+                    // 先收合所有項目
+                    document.querySelectorAll('.accordion-content').forEach(c => {
+                        c.classList.remove('max-h-[1000px]', 'opacity-100');
+                        c.classList.add('max-h-0', 'opacity-0');
+                    });
+                    document.querySelectorAll('.icon-container').forEach(i => {
+                        i.classList.remove('rotate-180');
+                    });
+
+                    // 如果原本是收合的，則展開點擊的項目
+                    if (!isOpen) {
+                        content.classList.remove('max-h-0', 'opacity-0');
+                        content.classList.add('max-h-[1000px]', 'opacity-100');
+                        icon.classList.add('rotate-180');
+                    }
+                });
+            });
+        }
+
+        // --- 頁籤切換事件 ---
+        const btnBody = document.getElementById('tab-body');
+        const btnFace = document.getElementById('tab-face');
+
+        btnBody.addEventListener('click', () => {
+            btnBody.className = "tab-btn flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-sm md:text-base transition-all bg-white text-rose-600 shadow-md";
+            btnFace.className = "tab-btn flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-sm md:text-base transition-all text-gray-500 hover:text-gray-700";
+            renderList('body');
+        });
+
+        btnFace.addEventListener('click', () => {
+            btnFace.className = "tab-btn flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-sm md:text-base transition-all bg-white text-rose-600 shadow-md";
+            btnBody.className = "tab-btn flex-1 flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl font-bold text-sm md:text-base transition-all text-gray-500 hover:text-gray-700";
+            renderList('face');
+        });
+
+        // 初始載入渲染身體課程、載入Icon
+        renderList('body');
+        lucide.createIcons();
+
+    </script>
+</body>
+</html>
