@@ -6,148 +6,278 @@
 <title>美業 Meta 廣告投放能力測驗｜美業方舟</title>
 <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;700&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 <style>
-:root{--rose:#E8A598;--rose-dark:#C4736A;--blush:#F5EBE8;--sage:#8BAF9A;--sage-light:#D6E8DE;--cream:#FAF7F4;--charcoal:#2C2624;--mid:#6B5E5A;--light:#BFB0AA;--white:#FFFFFF;--correct:#5A9E6F;--wrong:#C4534A;--border:#E8DDD9;--line-green:#06C755}
+:root{
+  --rose:#E8A598;--rose-dk:#C4736A;--blush:#F5EBE8;
+  --sage:#8BAF9A;--sage-l:#D6E8DE;--cream:#FAF7F4;
+  --char:#2C2624;--mid:#6B5E5A;--lt:#BFB0AA;
+  --white:#FFFFFF;--ok:#5A9E6F;--no:#C4534A;
+  --bdr:#E8DDD9;--line:#06C755;
+}
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:'Noto Sans TC',sans-serif;background:var(--cream);color:var(--charcoal);min-height:100vh;overflow-x:hidden}
+body{font-family:'Noto Sans TC',sans-serif;background:var(--cream);color:var(--char);min-height:100vh;overflow-x:hidden}
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle at 20% 20%,rgba(232,165,152,.12) 0%,transparent 50%),radial-gradient(circle at 80% 80%,rgba(139,175,154,.10) 0%,transparent 50%);pointer-events:none;z-index:0}
-.wrap{max-width:680px;margin:0 auto;padding:24px 16px 80px;position:relative;z-index:1}
-.site-header{text-align:center;padding:36px 0 24px}
-.header-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rose-dark);background:var(--blush);padding:5px 14px;border-radius:20px;margin-bottom:14px;border:1px solid rgba(196,115,106,.2)}
-.site-header h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,5vw,30px);font-weight:700;color:var(--charcoal);line-height:1.2;margin-bottom:8px}
-.site-header p{font-size:13px;color:var(--mid);line-height:1.7}
-.card{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:14px}
-/* LINE Banner */
-.line-banner{display:flex;align-items:center;gap:14px;padding:15px 20px;background:var(--charcoal);border-radius:16px;margin-bottom:16px;text-decoration:none;transition:opacity .2s;cursor:pointer}
+.wrap{max-width:700px;margin:0 auto;padding:24px 16px 90px;position:relative;z-index:1}
+
+/* ─ Header ─ */
+.site-hd{text-align:center;padding:36px 0 22px}
+.hd-badge{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--rose-dk);background:var(--blush);padding:5px 14px;border-radius:20px;margin-bottom:14px;border:1px solid rgba(196,115,106,.2)}
+.site-hd h1{font-family:'Space Grotesk',sans-serif;font-size:clamp(22px,5vw,30px);font-weight:700;color:var(--char);line-height:1.2;margin-bottom:8px}
+.site-hd p{font-size:13px;color:var(--mid);line-height:1.7}
+
+/* ─ LINE Banner ─ */
+.line-banner{display:flex;align-items:center;gap:14px;padding:15px 20px;background:var(--char);border-radius:16px;margin-bottom:14px;text-decoration:none;transition:opacity .2s}
 .line-banner:hover{opacity:.88}
-.line-icon{width:40px;height:40px;border-radius:10px;background:var(--line-green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.line-icon{width:40px;height:40px;border-radius:10px;background:var(--line);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .line-icon svg{width:25px;height:25px;fill:var(--white)}
-.line-text{flex:1}
-.line-text strong{display:block;font-size:14px;font-weight:700;color:var(--white);margin-bottom:2px}
-.line-text span{font-size:12px;color:rgba(255,255,255,.6)}
-.line-arr{font-size:20px;color:var(--line-green)}
-/* Form */
-.form-section{padding:26px}
-.form-section h2{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--charcoal);margin-bottom:5px}
-.form-desc{font-size:13px;color:var(--mid);margin-bottom:20px;line-height:1.6}
-.sec-div{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin:18px 0 12px;padding-bottom:6px;border-bottom:1px solid var(--border)}
-.field{margin-bottom:13px}
+.line-txt{flex:1}
+.line-txt strong{display:block;font-size:14px;font-weight:700;color:var(--white);margin-bottom:2px}
+.line-txt span{font-size:12px;color:rgba(255,255,255,.6)}
+.line-arr{font-size:20px;color:var(--line)}
+
+/* ─ Card ─ */
+.card{background:var(--white);border:1px solid var(--bdr);border-radius:20px;overflow:hidden;margin-bottom:14px}
+
+/* ─ Form ─ */
+.form-sec{padding:26px}
+.form-sec h2{font-family:'Space Grotesk',sans-serif;font-size:18px;font-weight:700;color:var(--char);margin-bottom:5px}
+.form-desc{font-size:13px;color:var(--mid);margin-bottom:18px;line-height:1.6}
+.sec-div{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mid);margin:16px 0 10px;padding-bottom:6px;border-bottom:1px solid var(--bdr)}
+.field{margin-bottom:12px}
 .field label{display:block;font-size:11px;font-weight:700;color:var(--mid);letter-spacing:.04em;text-transform:uppercase;margin-bottom:5px}
-.field input,.field select{width:100%;padding:11px 14px;border:1.5px solid var(--border);border-radius:12px;font-size:14px;font-family:'Noto Sans TC',sans-serif;color:var(--charcoal);background:var(--cream);outline:none;transition:border-color .2s}
+.field input,.field select{width:100%;padding:11px 14px;border:1.5px solid var(--bdr);border-radius:12px;font-size:14px;font-family:'Noto Sans TC',sans-serif;color:var(--char);background:var(--cream);outline:none;transition:border-color .2s}
 .field input:focus,.field select:focus{border-color:var(--rose)}
-.field input::placeholder{color:var(--light)}
+.field input::placeholder{color:var(--lt)}
 .field-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.req{color:var(--rose-dark)}
-.start-btn{width:100%;padding:14px;background:var(--charcoal);color:var(--white);border:none;border-radius:14px;font-size:15px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .2s;margin-top:6px}
-.start-btn:hover{background:var(--rose-dark);transform:translateY(-1px)}
-/* Quiz */
-.quiz-top{padding:20px 22px 0;border-bottom:1px solid var(--border)}
+.req{color:var(--rose-dk)}
+.start-btn{width:100%;padding:14px;background:var(--char);color:var(--white);border:none;border-radius:14px;font-size:15px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .2s;margin-top:6px}
+.start-btn:hover{background:var(--rose-dk);transform:translateY(-1px)}
+
+/* ─ Quiz ─ */
+.quiz-top{padding:20px 22px 0;border-bottom:1px solid var(--bdr)}
 .stu-banner{display:flex;align-items:center;gap:10px;padding:11px 14px;background:var(--blush);border-radius:12px;margin-bottom:14px}
 .stu-av{width:34px;height:34px;border-radius:50%;background:var(--rose);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:var(--white);flex-shrink:0}
-.stu-info{font-size:13px;color:var(--charcoal);min-width:0}
+.stu-info{font-size:13px;color:var(--char);min-width:0}
 .stu-info strong{display:block;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .stu-info span{color:var(--mid);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;display:block}
 .lv-tabs{display:flex}
 .lt{flex:1;padding:10px;border:none;background:transparent;font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;color:var(--mid);cursor:pointer;border-bottom:2px solid transparent;transition:all .15s}
-.lt.on{color:var(--rose-dark);border-bottom-color:var(--rose-dark)}
+.lt.on{color:var(--rose-dk);border-bottom-color:var(--rose-dk)}
 .prog-wrap{padding:14px 22px 0}
 .prog-meta{display:flex;justify-content:space-between;margin-bottom:5px}
 .prog-lbl{font-size:11px;color:var(--mid)}
-.prog-bar{height:4px;background:var(--border);border-radius:2px;overflow:hidden}
+.prog-bar{height:4px;background:var(--bdr);border-radius:2px;overflow:hidden}
 .prog-fill{height:100%;border-radius:2px;background:var(--rose);transition:width .3s}
 .q-wrap{padding:14px 22px}
 .lv-c{display:none}.lv-c.on{display:block}
-.q-block{background:var(--cream);border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px}
+.q-block{background:var(--cream);border:1px solid var(--bdr);border-radius:14px;padding:14px;margin-bottom:10px}
 .q-top{display:flex;gap:9px;align-items:flex-start;margin-bottom:11px}
 .q-badge{font-size:10px;font-weight:700;padding:3px 8px;border-radius:8px;white-space:nowrap;flex-shrink:0;margin-top:2px;letter-spacing:.04em}
-.qb-b{background:var(--blush);color:var(--rose-dark)}
-.qb-a{background:var(--sage-light);color:#3D6B52}
-.q-text{font-size:13px;font-weight:500;color:var(--charcoal);line-height:1.65}
+.qb-b{background:var(--blush);color:var(--rose-dk)}
+.qb-a{background:var(--sage-l);color:#3D6B52}
+.q-text{font-size:13px;font-weight:500;color:var(--char);line-height:1.65}
 .opts{display:flex;flex-direction:column;gap:6px}
-.opt{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--border);cursor:pointer;font-size:13px;color:var(--charcoal);line-height:1.5;background:var(--white);transition:all .15s}
+.opt{display:flex;align-items:flex-start;gap:9px;padding:9px 11px;border-radius:10px;border:1.5px solid var(--bdr);cursor:pointer;font-size:13px;color:var(--char);line-height:1.5;background:var(--white);transition:all .15s}
 .opt:hover{border-color:var(--rose);background:var(--blush)}
-.opt-l{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:var(--mid)}
+.opt-l{width:20px;height:20px;border-radius:50%;border:1.5px solid var(--bdr);display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0;color:var(--mid)}
 .opt.picked{border-color:var(--rose);background:var(--blush)}.opt.picked .opt-l{background:var(--rose);border-color:var(--rose);color:var(--white)}
-.opt.correct{border-color:var(--correct);background:#EAF4EE}.opt.correct .opt-l{background:var(--correct);border-color:var(--correct);color:var(--white)}
-.opt.wrong{border-color:var(--wrong);background:#FAEAEA}.opt.wrong .opt-l{background:var(--wrong);border-color:var(--wrong);color:var(--white)}
+.opt.correct{border-color:var(--ok);background:#EAF4EE}.opt.correct .opt-l{background:var(--ok);border-color:var(--ok);color:var(--white)}
+.opt.wrong{border-color:var(--no);background:#FAEAEA}.opt.wrong .opt-l{background:var(--no);border-color:var(--no);color:var(--white)}
 .fb{display:none;margin-top:9px;padding:9px 11px;border-radius:9px;font-size:12px;line-height:1.65}
 .fb.show{display:block}.fb-ok{background:#EAF4EE;color:#2D6040}.fb-no{background:#FAEAEA;color:#7A2525}
 .fb-t{font-weight:700;margin-bottom:2px;font-size:12px}
 .sub-wrap{padding:0 22px 22px}
-.sub-btn{width:100%;padding:13px;background:var(--charcoal);color:var(--white);border:none;border-radius:12px;font-size:14px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .2s}
-.sub-btn:hover:not(:disabled){background:var(--rose-dark)}.sub-btn:disabled{opacity:.35;cursor:not-allowed}
-/* Score */
+.sub-btn{width:100%;padding:13px;background:var(--char);color:var(--white);border:none;border-radius:12px;font-size:14px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .2s}
+.sub-btn:hover:not(:disabled){background:var(--rose-dk)}.sub-btn:disabled{opacity:.35;cursor:not-allowed}
+
+/* ─ Score Panel ─ */
 .score-panel{display:none;padding:22px}.score-panel.show{display:block}
 .score-inner{text-align:center;padding:24px 16px;background:var(--cream);border-radius:14px;margin-bottom:14px}
 .score-ring{width:96px;height:96px;border-radius:50%;border:4px solid var(--rose);display:flex;flex-direction:column;align-items:center;justify-content:center;margin:0 auto 14px}
-.score-num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--charcoal);line-height:1}
+.score-num{font-family:'Space Grotesk',sans-serif;font-size:28px;font-weight:700;color:var(--char);line-height:1}
 .score-den{font-size:11px;color:var(--mid)}
-.score-pct{font-size:26px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--charcoal);margin-bottom:3px}
-.score-title{font-size:14px;font-weight:700;color:var(--rose-dark);margin-bottom:8px}
-.score-comment{font-size:13px;color:var(--mid);line-height:1.7;max-width:360px;margin:0 auto}
-.score-line-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:13px;background:var(--line-green);color:var(--white);border:none;border-radius:12px;font-size:14px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;margin-bottom:10px;text-decoration:none;transition:opacity .2s}
-.score-line-btn:hover{opacity:.88}
-.score-line-btn svg{width:20px;height:20px;fill:var(--white);flex-shrink:0}
+.score-pct{font-size:26px;font-weight:700;font-family:'Space Grotesk',sans-serif;color:var(--char);margin-bottom:3px}
+.score-ttl{font-size:14px;font-weight:700;color:var(--rose-dk);margin-bottom:8px}
+.score-cmt{font-size:13px;color:var(--mid);line-height:1.7;max-width:360px;margin:0 auto}
+.sync-box{font-size:12px;padding:8px 12px;border-radius:8px;margin-bottom:12px;text-align:center;display:none}
+.sync-box.show{display:block}
+.sy-ok{background:#EAF4EE;color:#2D6040}
+.sy-no{background:#FAEAEA;color:#7A2525}
+.sy-ing{background:var(--blush);color:var(--rose-dk)}
+.line-score-btn{display:flex;align-items:center;justify-content:center;gap:9px;width:100%;padding:13px;background:var(--line);color:var(--white);border:none;border-radius:12px;font-size:14px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;margin-bottom:10px;text-decoration:none;transition:opacity .2s}
+.line-score-btn:hover{opacity:.88}
+.line-score-btn svg{width:20px;height:20px;fill:var(--white);flex-shrink:0}
 .act-row{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px}
-.act-btn{padding:11px;border-radius:11px;border:1.5px solid var(--border);background:var(--white);font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;color:var(--charcoal);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
-.act-btn:hover{border-color:var(--rose);color:var(--rose-dark);background:var(--blush)}
-.act-btn.pri{background:var(--charcoal);color:var(--white);border-color:var(--charcoal)}.act-btn.pri:hover{background:var(--rose-dark);border-color:var(--rose-dark)}
-.rst-btn{width:100%;padding:11px;border-radius:11px;border:1px solid var(--border);background:transparent;font-size:13px;font-family:'Noto Sans TC',sans-serif;color:var(--mid);cursor:pointer}
+.act-btn{padding:11px;border-radius:11px;border:1.5px solid var(--bdr);background:var(--white);font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;color:var(--char);cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;transition:all .15s}
+.act-btn:hover{border-color:var(--rose);color:var(--rose-dk);background:var(--blush)}
+.act-btn.pri{background:var(--char);color:var(--white);border-color:var(--char)}.act-btn.pri:hover{background:var(--rose-dk);border-color:var(--rose-dk)}
+.act-btn.grn{background:var(--ok);color:var(--white);border-color:var(--ok)}.act-btn.grn:hover{opacity:.88}
+.rst-btn{width:100%;padding:11px;border-radius:11px;border:1px solid var(--bdr);background:transparent;font-size:13px;font-family:'Noto Sans TC',sans-serif;color:var(--mid);cursor:pointer}
 .ic{width:15px;height:15px;display:inline-block}
-/* Screenshot */
-.sc-card{background:var(--white);border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-bottom:14px;display:none}
+
+/* ─ Screenshot Card ─ */
+.sc-card{background:var(--white);border:1px solid var(--bdr);border-radius:20px;overflow:hidden;margin-bottom:14px;display:none}
 .sc-card.show{display:block}
 .sc-con{padding:22px}
 .sc-hd{display:flex;align-items:center;gap:12px;margin-bottom:16px}
-.sc-logo{width:42px;height:42px;border-radius:10px;background:var(--charcoal);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;color:var(--white);text-align:center;line-height:1.3;flex-shrink:0}
-.sc-brand strong{display:block;font-size:14px;font-weight:700;color:var(--charcoal)}
+.sc-logo{width:42px;height:42px;border-radius:10px;background:var(--char);display:flex;align-items:center;justify-content:center;font-family:'Space Grotesk',sans-serif;font-size:9px;font-weight:700;color:var(--white);text-align:center;line-height:1.3;flex-shrink:0}
+.sc-brand strong{display:block;font-size:14px;font-weight:700;color:var(--char)}
 .sc-brand span{font-size:11px;color:var(--mid)}
 .sc-chips{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:14px}
-.sc-chip{font-size:11px;padding:3px 9px;border-radius:9px;background:var(--blush);color:var(--rose-dark);font-weight:500}
+.sc-chip{font-size:11px;padding:3px 9px;border-radius:9px;background:var(--blush);color:var(--rose-dk);font-weight:500}
 .sc-scores{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px}
 .sc-sb{background:var(--cream);border-radius:10px;padding:12px;text-align:center}
 .sc-sl{font-size:10px;color:var(--mid);margin-bottom:3px}
-.sc-sv{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--charcoal)}
+.sc-sv{font-family:'Space Grotesk',sans-serif;font-size:24px;font-weight:700;color:var(--char)}
 .sc-ss{font-size:10px;color:var(--mid)}
-.sc-lv-b{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:8px;margin:0 4px 8px 0;background:var(--blush);color:var(--rose-dark)}
-.sc-lv-a{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:8px;margin:0 4px 8px 0;background:var(--sage-light);color:#3D6B52}
-.sc-comment{font-size:12px;color:var(--mid);line-height:1.6;padding:10px 12px;background:var(--cream);border-radius:8px;margin-bottom:12px}
-.sc-foot{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--border)}
-.sc-foot-l{font-size:10px;color:var(--light)}
+.sc-lv-b{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:8px;margin:0 4px 8px 0;background:var(--blush);color:var(--rose-dk)}
+.sc-lv-a{display:inline-block;font-size:10px;font-weight:700;padding:3px 10px;border-radius:8px;margin:0 4px 8px 0;background:var(--sage-l);color:#3D6B52}
+.sc-cmt{font-size:12px;color:var(--mid);line-height:1.6;padding:10px 12px;background:var(--cream);border-radius:8px;margin-bottom:12px}
+.sc-foot{display:flex;align-items:center;justify-content:space-between;padding-top:10px;border-top:1px solid var(--bdr)}
+.sc-fl{font-size:10px;color:var(--lt)}
 .sc-wm{font-family:'Space Grotesk',sans-serif;font-size:10px;font-weight:700;color:var(--rose);letter-spacing:.08em}
-.sc-dt{font-size:10px;color:var(--light)}
+.sc-dt{font-size:10px;color:var(--lt)}
+
+/* ─ Admin Panel ─ */
+#adm-toggle{position:fixed;bottom:20px;right:20px;background:var(--char);color:var(--white);border:none;border-radius:50%;width:48px;height:48px;font-size:20px;cursor:pointer;z-index:200;box-shadow:0 4px 14px rgba(0,0,0,.25);transition:all .2s}
+#adm-toggle:hover{background:var(--rose-dk);transform:scale(1.08)}
+.adm-panel{display:none;background:var(--white);border:1px solid var(--bdr);border-radius:20px;margin-bottom:14px;overflow:hidden}
+.adm-panel.show{display:block}
+.adm-hd{background:var(--char);padding:16px 20px;display:flex;align-items:center;justify-content:space-between}
+.adm-hd h3{font-family:'Space Grotesk',sans-serif;font-size:16px;font-weight:700;color:var(--white)}
+.adm-hd span{font-size:12px;color:rgba(255,255,255,.55)}
+.adm-body{padding:20px}
+.adm-login{display:flex;gap:10px;margin-bottom:4px}
+.adm-login input{flex:1;padding:10px 14px;border:1.5px solid var(--bdr);border-radius:10px;font-size:14px;font-family:'Noto Sans TC',sans-serif;color:var(--char);background:var(--cream);outline:none}
+.adm-login input:focus{border-color:var(--rose)}
+.adm-login button{padding:10px 18px;background:var(--char);color:var(--white);border:none;border-radius:10px;font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;cursor:pointer;white-space:nowrap}
+.adm-login button:hover{background:var(--rose-dk)}
+.adm-content{display:none}
+.adm-content.show{display:block}
+
+/* Admin URL setup */
+.setup-box{background:var(--cream);border-radius:12px;padding:14px;margin-bottom:14px}
+.setup-box strong{display:block;font-size:13px;font-weight:700;color:var(--char);margin-bottom:6px}
+.setup-box p{font-size:12px;color:var(--mid);line-height:1.65;margin-bottom:10px}
+.url-row{display:flex;gap:8px}
+.url-row input{flex:1;padding:9px 12px;border:1.5px solid var(--bdr);border-radius:8px;font-size:12px;font-family:'Courier New',monospace;color:var(--char);background:var(--white);outline:none}
+.url-row input:focus{border-color:var(--rose)}
+.url-row button{padding:9px 14px;background:var(--char);color:var(--white);border:none;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;white-space:nowrap}
+.url-row button:hover{background:var(--rose-dk)}
+.url-saved{font-size:11px;color:var(--ok);margin-top:5px;display:none}
+.url-saved.show{display:block}
+
+/* Admin stats */
+.adm-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:14px}
+.adm-stat{background:var(--cream);border-radius:10px;padding:12px;text-align:center}
+.adm-stat-v{font-family:'Space Grotesk',sans-serif;font-size:22px;font-weight:700;color:var(--char)}
+.adm-stat-l{font-size:11px;color:var(--mid);margin-top:2px}
+
+/* Admin export bar */
+.adm-xrow{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.adm-btn{padding:10px 14px;border-radius:10px;border:1.5px solid var(--bdr);background:var(--white);font-size:13px;font-weight:700;font-family:'Noto Sans TC',sans-serif;color:var(--char);cursor:pointer;display:flex;align-items:center;gap:6px;transition:all .15s;white-space:nowrap}
+.adm-btn:hover{border-color:var(--rose);color:var(--rose-dk);background:var(--blush)}
+.adm-btn.grn{background:var(--ok);color:var(--white);border-color:var(--ok)}.adm-btn.grn:hover{opacity:.88}
+.adm-btn.red{color:var(--no);border-color:var(--no)}.adm-btn.red:hover{background:#FAEAEA}
+
+/* Admin table */
+.tbl-wrap{overflow-x:auto;border-radius:12px;border:1px solid var(--bdr)}
+.adm-tbl{width:100%;border-collapse:collapse;font-size:12px}
+.adm-tbl th{background:var(--char);color:var(--white);padding:9px 10px;text-align:left;white-space:nowrap;font-weight:700;font-size:11px}
+.adm-tbl td{padding:8px 10px;border-bottom:1px solid var(--bdr);white-space:nowrap;color:var(--char)}
+.adm-tbl tr:last-child td{border-bottom:none}
+.adm-tbl tr:nth-child(even) td{background:var(--cream)}
+.adm-empty{text-align:center;padding:28px;color:var(--mid);font-size:13px;line-height:1.7}
+.pill{font-size:10px;padding:2px 7px;border-radius:8px;font-weight:700;display:inline-block}
+.pill-hi{background:var(--sage-l);color:#27500A}
+.pill-mid{background:var(--blush);color:var(--rose-dk)}
+.pill-lo{background:#FAEAEA;color:#7A2525}
+
 /* Toast */
-.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--charcoal);color:var(--white);padding:10px 18px;border-radius:10px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap}
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(16px);background:var(--char);color:var(--white);padding:10px 18px;border-radius:10px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;z-index:999;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:480px){.field-row{grid-template-columns:1fr}.act-row{grid-template-columns:1fr}}
+@media(max-width:480px){.field-row,.act-row,.adm-xrow{grid-template-columns:1fr}.adm-stats{grid-template-columns:1fr 1fr}}
 </style>
 </head>
 <body>
+
 <div class="wrap">
 
-<header class="site-header">
-  <div class="header-badge">美業方舟 · 林可心</div>
+<!-- Header -->
+<header class="site-hd">
+  <div class="hd-badge">美業方舟 · 林可心</div>
   <h1>Meta 廣告投放<br>能力測驗</h1>
-  <p>基礎＋進階共 20 題｜涵蓋受眾設定、CPA 優化、廣告帳戶架設<br>完成後可截圖分享成績</p>
+  <p>基礎＋進階共 20 題｜受眾設定、CPA 優化、廣告帳戶架設<br>完成後成績自動記錄，可截圖 / 匯出 Excel</p>
 </header>
 
+<!-- LINE Banner -->
 <a class="line-banner" href="https://lin.ee/5MNiupN" target="_blank" rel="noopener">
-  <div class="line-icon">
-    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-  </div>
-  <div class="line-text">
-    <strong>加入美業方舟官方 LINE</strong>
-    <span>林可心老師｜廣告投放實戰技巧持續更新 →</span>
-  </div>
+  <div class="line-icon"><svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg></div>
+  <div class="line-txt"><strong>加入美業方舟官方 LINE</strong><span>林可心老師｜廣告投放實戰技巧持續更新 →</span></div>
   <span class="line-arr">→</span>
 </a>
 
-<!-- Registration -->
-<div class="card" id="reg-card">
-  <div class="form-section">
-    <h2>填寫學員資料</h2>
-    <p class="form-desc">請先填寫基本資料，完成後系統將把你的資訊記錄在成績證書上，方便林可心老師追蹤你的學習進度並提供個人化建議。</p>
+<!-- Admin Panel -->
+<div class="adm-panel" id="adm-panel">
+  <div class="adm-hd">
+    <h3>老師管理後台</h3>
+    <span id="adm-count">共 0 位學員</span>
+  </div>
+  <div class="adm-body">
+    <div id="adm-login-wrap">
+      <div class="adm-login">
+        <input type="password" id="adm-pw" placeholder="輸入管理密碼" onkeydown="if(event.key==='Enter')admLogin()">
+        <button onclick="admLogin()">登入後台</button>
+      </div>
+    </div>
+    <div class="adm-content" id="adm-content">
 
+      <!-- Google Sheet URL setup -->
+      <div class="setup-box">
+        <strong>Google Sheet 自動同步設定</strong>
+        <p>設定後，每位學員送出成績時資料會即時寫入你的 Google 試算表。<br>
+        步驟：① 新建 Google 試算表 → ② 工具 → Apps Script → ③ 貼入程式碼（已整合在 Excel 範本的第三個工作表）→ ④ 部署為網頁應用程式（所有人）→ ⑤ 複製 URL 貼入下方</p>
+        <div class="url-row">
+          <input type="text" id="gs-url" placeholder="https://script.google.com/macros/s/YOUR.../exec">
+          <button onclick="saveGsUrl()">儲存</button>
+        </div>
+        <div class="url-saved" id="url-saved">✓ 已儲存，學員資料將自動同步至 Google Sheet</div>
+      </div>
+
+      <!-- Stats -->
+      <div class="adm-stats">
+        <div class="adm-stat"><div class="adm-stat-v" id="as-tot">0</div><div class="adm-stat-l">學員總數</div></div>
+        <div class="adm-stat"><div class="adm-stat-v" id="as-b">0</div><div class="adm-stat-l">完成基礎篇</div></div>
+        <div class="adm-stat"><div class="adm-stat-v" id="as-a">0</div><div class="adm-stat-l">完成進階篇</div></div>
+        <div class="adm-stat"><div class="adm-stat-v" id="as-avg">—</div><div class="adm-stat-l">基礎平均分</div></div>
+      </div>
+
+      <!-- Export buttons -->
+      <div class="adm-xrow">
+        <button class="adm-btn grn" onclick="exportExcel()">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>匯出完整 Excel
+        </button>
+        <button class="adm-btn" onclick="exportCSV()">匯出 CSV</button>
+        <button class="adm-btn" onclick="refreshTable()">
+          <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>重新整理
+        </button>
+        <button class="adm-btn red" onclick="clearLocal()">清除本地資料</button>
+      </div>
+
+      <!-- Table -->
+      <div class="tbl-wrap" id="tbl-wrap">
+        <div class="adm-empty">尚無學員資料<br><small>學員完成問卷後，資料會自動出現在這裡</small></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Registration Card -->
+<div class="card" id="reg-card">
+  <div class="form-sec">
+    <h2>填寫學員資料</h2>
+    <p class="form-desc">請先填寫基本資料，完成後成績將自動記錄並同步至老師端，林可心老師可查看你的學習進度提供個人化建議。</p>
     <div class="sec-div">基本資料</div>
     <div class="field-row">
       <div class="field"><label>姓名 <span class="req">*</span></label><input type="text" id="f-name" placeholder="你的名字"></div>
@@ -155,61 +285,35 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     </div>
     <div class="field"><label>電子郵件 <span class="req">*</span></label><input type="email" id="f-email" placeholder="your@email.com"></div>
     <div class="field"><label>Line ID</label><input type="text" id="f-line" placeholder="方便老師後續個別指導"></div>
-
     <div class="sec-div">店家資料</div>
     <div class="field"><label>店家／工作室名稱 <span class="req">*</span></label><input type="text" id="f-shop" placeholder="例：可心美睫工作室"></div>
     <div class="field-row">
       <div class="field"><label>美業類型 <span class="req">*</span></label>
-        <select id="f-type">
-          <option value="">請選擇</option>
-          <option>美睫</option><option>美甲</option><option>霧眉／紋繡</option>
-          <option>美髮</option><option>美容／護膚</option><option>醫美</option>
-          <option>SPA／美體</option><option>多項目工作室</option>
-          <option>行銷顧問</option><option>其他</option>
-        </select>
+        <select id="f-type"><option value="">請選擇</option><option>美睫</option><option>美甲</option><option>霧眉／紋繡</option><option>美髮</option><option>美容／護膚</option><option>醫美</option><option>SPA／美體</option><option>多項目工作室</option><option>行銷顧問</option><option>其他</option></select>
       </div>
       <div class="field"><label>所在城市</label>
-        <select id="f-city">
-          <option value="">請選擇</option>
-          <option>台北市</option><option>新北市</option><option>桃園市</option>
-          <option>台中市</option><option>台南市</option><option>高雄市</option>
-          <option>基隆市</option><option>新竹市</option><option>嘉義市</option><option>其他縣市</option>
-        </select>
+        <select id="f-city"><option value="">請選擇</option><option>台北市</option><option>新北市</option><option>桃園市</option><option>台中市</option><option>台南市</option><option>高雄市</option><option>基隆市</option><option>新竹市</option><option>嘉義市</option><option>其他縣市</option></select>
       </div>
     </div>
-
     <div class="sec-div">廣告投放現況</div>
     <div class="field-row">
       <div class="field"><label>目前月廣告預算 <span class="req">*</span></label>
-        <select id="f-budget">
-          <option value="">請選擇</option>
-          <option>尚未投放廣告</option><option>1,000 元以下</option>
-          <option>1,000–3,000 元</option><option>3,000–8,000 元</option>
-          <option>8,000–20,000 元</option><option>20,000 元以上</option>
-        </select>
+        <select id="f-budget"><option value="">請選擇</option><option>尚未投放廣告</option><option>1,000 元以下</option><option>1,000–3,000 元</option><option>3,000–8,000 元</option><option>8,000–20,000 元</option><option>20,000 元以上</option></select>
       </div>
       <div class="field"><label>廣告投放經驗</label>
-        <select id="f-exp">
-          <option value="">請選擇</option>
-          <option>完全沒有</option><option>試過但沒效果</option>
-          <option>有一點基礎</option><option>已有穩定投放</option>
-        </select>
+        <select id="f-exp"><option value="">請選擇</option><option>完全沒有</option><option>試過但沒效果</option><option>有一點基礎</option><option>已有穩定投放</option></select>
       </div>
     </div>
-
     <button class="start-btn" onclick="startQuiz()">開始測驗 →</button>
   </div>
 </div>
 
-<!-- Quiz -->
+<!-- Quiz Card -->
 <div class="card" id="quiz-card" style="display:none">
   <div class="quiz-top">
     <div class="stu-banner">
       <div class="stu-av" id="q-av"></div>
-      <div class="stu-info">
-        <strong id="q-name"></strong>
-        <span id="q-info"></span>
-      </div>
+      <div class="stu-info"><strong id="q-name"></strong><span id="q-info"></span></div>
     </div>
     <div class="lv-tabs">
       <button class="lt on" onclick="swLv('b',this)">基礎篇（10題）</button>
@@ -217,7 +321,7 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     </div>
   </div>
   <div class="prog-wrap">
-    <div class="prog-meta"><span class="prog-lbl" id="prog-lbl">已作答 0 / 10 題</span><span class="prog-lbl" id="prog-r"></span></div>
+    <div class="prog-meta"><span class="prog-lbl" id="prog-lbl">已作答 0 / 10 題</span></div>
     <div class="prog-bar"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
   </div>
   <div class="q-wrap">
@@ -231,17 +335,16 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="score-inner">
       <div class="score-ring"><div class="score-num" id="sn-b"></div><div class="score-den">/ 10</div></div>
       <div class="score-pct" id="sp-b"></div>
-      <div class="score-title" id="st-b"></div>
-      <div class="score-comment" id="sc-b"></div>
+      <div class="score-ttl" id="st-b"></div>
+      <div class="score-cmt" id="sc-b"></div>
     </div>
-    <a class="score-line-btn" href="https://lin.ee/5MNiupN" target="_blank" rel="noopener">
+    <div class="sync-box" id="sy-b"></div>
+    <a class="line-score-btn" href="https://lin.ee/5MNiupN" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-      加入美業方舟 LINE — 取得廣告實戰教學
+      加入美業方舟 LINE — 取得更多廣告實戰教學
     </a>
     <div class="act-row">
-      <button class="act-btn" onclick="captureScore()">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>截圖成績
-      </button>
+      <button class="act-btn" onclick="captureScore()"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>截圖成績</button>
       <button class="act-btn pri" onclick="goAdv()">繼續進階篇 →</button>
     </div>
     <button class="rst-btn" onclick="rstLv('b')">重新作答基礎篇</button>
@@ -252,26 +355,26 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="score-inner">
       <div class="score-ring"><div class="score-num" id="sn-a"></div><div class="score-den">/ 10</div></div>
       <div class="score-pct" id="sp-a"></div>
-      <div class="score-title" id="st-a"></div>
-      <div class="score-comment" id="sc-a"></div>
+      <div class="score-ttl" id="st-a"></div>
+      <div class="score-cmt" id="sc-a"></div>
     </div>
-    <a class="score-line-btn" href="https://lin.ee/5MNiupN" target="_blank" rel="noopener">
+    <div class="sync-box" id="sy-a"></div>
+    <a class="line-score-btn" href="https://lin.ee/5MNiupN" target="_blank" rel="noopener">
       <svg viewBox="0 0 24 24"><path d="M19.365 9.863c.349 0 .63.285.63.631 0 .345-.281.63-.63.63H17.61v1.125h1.755c.349 0 .63.283.63.63 0 .344-.281.629-.63.629h-2.386c-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63h2.386c.349 0 .63.285.63.63 0 .349-.281.63-.63.63H17.61v1.125h1.755zm-3.855 3.016c0 .27-.174.51-.432.596-.064.021-.133.031-.199.031-.211 0-.391-.09-.51-.25l-2.443-3.317v2.94c0 .344-.279.629-.631.629-.346 0-.626-.285-.626-.629V8.108c0-.27.173-.51.43-.595.06-.023.136-.033.194-.033.195 0 .375.104.495.254l2.462 3.33V8.108c0-.345.282-.63.63-.63.345 0 .63.285.63.63v4.771zm-5.741 0c0 .344-.282.629-.631.629-.345 0-.627-.285-.627-.629V8.108c0-.345.282-.63.627-.63.349 0 .631.285.631.63v4.771zm-2.466.629H4.917c-.345 0-.63-.285-.63-.629V8.108c0-.345.285-.63.63-.63.348 0 .63.285.63.63v4.141h1.756c.348 0 .629.283.629.63 0 .344-.281.629-.629.629M24 10.314C24 4.943 18.615.572 12 .572S0 4.943 0 10.314c0 4.811 4.27 8.842 10.035 9.608.391.082.923.258 1.058.59.12.301.079.766.038 1.08l-.164 1.02c-.045.301-.24 1.186 1.049.645 1.291-.539 6.916-4.078 9.436-6.975C23.176 14.393 24 12.458 24 10.314"/></svg>
-      加入美業方舟 LINE — 取得廣告實戰教學
+      加入美業方舟 LINE — 取得更多廣告實戰教學
     </a>
     <div class="act-row">
-      <button class="act-btn" onclick="captureScore()">
-        <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>截圖成績
-      </button>
-      <button class="act-btn pri" onclick="captureAndShare()">
-        分享成績<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg>
-      </button>
+      <button class="act-btn" onclick="captureScore()"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>截圖成績</button>
+      <button class="act-btn pri" onclick="shareScore()">分享成績<svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 12v8a2 2 0 002 2h12a2 2 0 002-2v-8"/><polyline points="16 6 12 2 8 6"/><line x1="12" y1="2" x2="12" y2="15"/></svg></button>
     </div>
+    <button class="act-btn grn" style="width:100%;margin-bottom:9px" onclick="dlMyExcel()">
+      <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>下載我的成績 Excel
+    </button>
     <button class="rst-btn" onclick="rstLv('a')">重新作答進階篇</button>
   </div>
 </div>
 
-<!-- Screenshot Card -->
+<!-- Screenshot card (hidden, for capture) -->
 <div class="sc-card" id="sc-card">
   <div class="sc-con">
     <div class="sc-hd">
@@ -281,23 +384,32 @@ body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(
     <div class="sc-chips" id="sc-chips"></div>
     <div class="sc-scores" id="sc-scores"></div>
     <div id="sc-badges"></div>
-    <div class="sc-comment" id="sc-comment"></div>
+    <div class="sc-cmt" id="sc-cmt"></div>
     <div class="sc-foot">
-      <div class="sc-foot-l">lin.ee/5MNiupN</div>
+      <div class="sc-fl">lin.ee/5MNiupN</div>
       <div class="sc-wm">CERTIFIED</div>
       <div class="sc-dt" id="sc-dt"></div>
     </div>
   </div>
 </div>
 
-</div>
+</div><!-- /wrap -->
+
+<button id="adm-toggle" onclick="toggleAdm()" title="老師管理後台">⚙</button>
 <div class="toast" id="toast"></div>
 
 <script>
-const LINE_URL='https://lin.ee/5MNiupN';
-const LETTERS=['A','B','C','D'];
+/* ═══════════════════════════════════════════════
+   設定
+═══════════════════════════════════════════════ */
+let GS_URL     = localStorage.getItem('gs_url') || '';
+const ADMIN_PW = 'beauty2025';
+const LETTERS  = ['A','B','C','D'];
 
-const BQS=[
+/* ═══════════════════════════════════════════════
+   題庫
+═══════════════════════════════════════════════ */
+const BQS = [
   {q:"你在台北大安區開了一間美睫工作室，Meta 廣告受眾應該怎麼設定最精準？",opts:["全台灣 18–45 歲女性，對美妝有興趣","工作室附近 5 公里內，25–38 歲女性，最近瀏覽過美睫相關內容","全台灣 25–45 歲女性，不限地區","工作室附近 20 公里，所有年齡女性"],ans:1,explain:"地理縮到 5 公里、加行為受眾（最近看過美睫內容）、年齡 25–38，讓受眾從數百萬縮到精準兩萬人。超過 5 公里的客人預約機率大幅下降，打全台等於稀釋預算。"},
   {q:"什麼是「興趣受眾」和「行為受眾」的最大差別？",opts:["興趣受眾比行為受眾便宜，所以優先選興趣受眾","興趣受眾是對某類內容有興趣，行為受眾是近期有具體行為（如瀏覽過美睫粉專），後者購買意圖更強","兩者完全相同，只是名稱不同","行為受眾只適合大品牌，小工作室應使用興趣受眾"],ans:1,explain:"興趣受眾偏好廣泛，只代表「某人對美妝有興趣」；行為受眾是有具體行動紀錄的人，例如最近看過、互動過美睫相關內容。後者對美業廣告的轉換率通常高 2–3 倍。"},
   {q:"你想鎖定「最近 30 天造訪過你 IG 主頁但沒有追蹤」的人投廣告，應該建立哪種受眾？",opts:["廣泛受眾，讓 Meta 系統自動找","類似受眾（Lookalike）","自訂受眾（Custom Audience）— 選「Instagram 帳號」互動","興趣受眾：美甲、美睫"],ans:2,explain:"自訂受眾可以精確鎖定「造訪過你 IG 帳號的人」。在 Meta 廣告後台：受眾 → 建立受眾 → 自訂受眾 → Instagram 帳號 → 選「造訪過你個人主頁」，設定 30 天即可。"},
@@ -307,50 +419,78 @@ const BQS=[
   {q:"你有 5,000 元廣告預算，第一週應該怎麼分配最正確？",opts:["全部一次投入，跑滿一個月，讓系統自動優化","分成 4 組廣告，每組每天 150 元跑 3 天，看哪組 CTR 最高再加碼","全部投在最便宜的受眾，讓觸及人數最大化","一半投 IG，一半投 Facebook，平均分配"],ans:1,explain:"正確邏輯是「先測試，再放大」。分成小組測試不同素材，找出有效的廣告組再加碼，避免把所有預算押在未知效果的廣告上。一次梭哈是最常見的新手錯誤。"},
   {q:"在 Meta 廣告後台，「出資者資訊（Payer）」設定正確的做法是？",opts:["不需要填，Meta 系統會自動設定","必須填寫真實的個人或公司名稱，且需與付款方式的持有人一致，否則廣告可能被審查或停投","可以填任意名稱，不影響廣告投放","只有月消費超過 10 萬才需要填寫"],ans:1,explain:"出資者資訊是 Meta 針對廣告透明度的政策要求，必須填寫真實的個人姓名或公司名稱，且需與帳戶付款方式的持有人相符。填寫不實可能導致廣告審查失敗或帳號受限。"},
   {q:"第一次架設 Meta 廣告帳戶，正確的架構順序是？",opts:["直接用個人 Facebook 帳號投廣告，不需要商業帳號","先建立 Meta 商業管理平台（Business Manager）→ 新增廣告帳號 → 連結粉專和 IG → 設定付款方式","先開廣告帳號，再設定商業管理平台","用手機 App 就能完整設定，不需要電腦後台"],ans:1,explain:"正確架構：先建立 Meta Business Suite → 新增廣告帳號 → 連結 Facebook 粉專和 IG 帳號 → 新增付款方式 → 填寫出資者資訊。這樣才能完整管理廣告資產，避免個人帳號被停用影響廣告。"},
-  {q:"廣告投了一週，觸及人數很高但詢問量很少，最可能的問題是？",opts:["廣告預算太少，要加錢","受眾設定太窄，應該擴大","廣告素材或文案沒有說服力，沒有讓人想行動","廣告投放時間選錯了"],ans:2,explain:"觸及高但詢問少 = 有人看到廣告但不想點。這是「素材或文案問題」，不是受眾或預算問題。解法：檢查廣告文案是否有明確優惠和 CTA，或更換素材重新測試。"}
+  {q:"廣告投了一週，觸及人數很高但詢問量很少，最可能的問題是？",opts:["廣告預算太少，要加錢","受眾設定太窄，應該擴大","廣告素材或文案沒有說服力，沒有讓人想行動","廣告投放時間選錯了"],ans:2,explain:"觸及高但詢問少 = 有人看到廣告但不想點。這是「素材或文案問題」，不是受眾或預算問題。解法：檢查廣告文案是否有明確優惠和 CTA，或更換素材重新測試。"},
 ];
 
-const AQS=[
-  {q:"什麼是廣告的「CPA（每次獲客成本）」？計算方式是？",opts:["CPA = 廣告費 ÷ 曝光次數","CPA = 廣告費 ÷ 點擊次數","CPA = 廣告費 ÷ 實際完成預約（或詢問）的人數","CPA = 廣告費 ÷ 追蹤人數"],ans:2,explain:"CPA（Cost Per Acquisition）= 總廣告費 ÷ 獲得的預約或詢問數量。這是美業廣告最重要的核心指標。例如花了 3,000 元廣告費帶來 15 個新預約，CPA = 200 元。判斷標準：CPA 低於服務單價的 20% 才是健康的投放。"},
-  {q:"你的美睫首次體驗單價 980 元，廣告投了一週，CPA 是 450 元。你應該怎麼判斷？",opts:["CPA 450 元遠低於單價 980 元，廣告效益非常好，可以大幅加碼","CPA 450 元超過單價的 20%（196 元），代表廣告費偏高，需要優化受眾或文案","CPA 不重要，只看詢問數量就好","CPA 450 元是正常範圍，繼續維持即可"],ans:1,explain:"CPA 健康標準：低於服務單價的 20%。980 元的 20% 是 196 元。CPA 450 元代表每帶一個新客花了將近半個單價，雖然還有利潤空間，但廣告效率偏低，需要優化受眾精準度或廣告文案的說服力。"},
-  {q:"哪個做法最能有效降低廣告的 CPA？",opts:["直接增加廣告預算，讓更多人看到廣告","縮小受眾精準度＋優化廣告文案（加入優惠和截止感）＋對猶豫者投再行銷","換一個廣告版位，改投 Messenger 廣告","換成影片廣告，因為影片一定比圖片有效"],ans:1,explain:"降低 CPA 的三個核心方法：①受眾更精準（打到真正有需求的人）②廣告文案更有說服力（讓人有行動理由）③再行銷（對已接觸但未預約的溫流量再投，這批人 CPA 最低）。單純加預算不會降低 CPA，只會放大現有的效率問題。"},
-  {q:"什麼是 Meta 廣告的「像素（Pixel）」？為什麼美業工作室需要安裝？",opts:["像素是廣告的圖片格式，解析度要夠高才能過審","像素是安裝在你網站或預約頁面的追蹤碼，記錄訪客行為，讓 Meta 知道誰完成了預約，用於優化轉換和建立再行銷受眾","像素只有大企業才需要，小工作室不需要","像素是用來追蹤競爭對手廣告效果的工具"],ans:1,explain:"Meta 像素是一段 JavaScript 代碼，安裝在預約頁面後，可以追蹤「完成預約」等關鍵行為，讓 Meta 系統知道哪些人是真正的目標客戶，進而優化廣告給更可能預約的人。沒有像素就無法做精準的轉換優化。"},
-  {q:"在 Meta 商業管理平台（Business Manager）裡，「資產」包含哪些？",opts:["只有廣告帳號","廣告帳號、Facebook 粉絲專頁、IG 帳號、像素、商品目錄、自訂受眾等","只有粉絲專頁和廣告帳號","只有像素和廣告帳號"],ans:1,explain:"Meta Business Manager 的「資產」包含：廣告帳號、Facebook 粉絲專頁、Instagram 帳號、Meta 像素、自訂受眾、商品目錄等。把所有資產集中在一個 Business Manager 管理，才能跨帳號使用受眾和像素，也方便未來找代操或員工協助。"},
-  {q:"一個廣告跑了 14 天效果很好，之後 CPA 開始上升，最可能的原因是？",opts:["廣告預算不夠，需要加碼","Meta 演算法改版","廣告疲勞：同一批受眾已經看過太多次，新鮮感消失，點擊意願下降","競爭對手投了更多廣告"],ans:2,explain:"廣告疲勞（Ad Fatigue）是必然現象。同一批受眾看到同一個廣告超過 3–5 次後，CTR 下降、CPA 上升。解法：更換廣告素材（圖片或影片）但保留受眾設定，建議每 2–3 週更新一次素材。"},
-  {q:"什麼是廣告的「漏斗（Funnel）」結構？正確的三層描述是？",opts:["圖片廣告 → 影片廣告 → 文字廣告","冷流量（陌生人）→ 溫流量（接觸過你的人）→ 熱流量（再行銷轉換）","低預算測試 → 中預算 → 高預算","Facebook → Instagram → YouTube"],ans:1,explain:"廣告漏斗三層：頂層投冷流量（讓陌生人認識你），中層投溫流量（看過你內容或廣告的人），底層投熱流量再行銷（看過廣告但沒預約的人）。底層的 CPA 通常是頂層的 1/3，是最值得投的。"},
-  {q:"美業廣告的「A/B 測試」正確做法是什麼？",opts:["同時測試所有變數：受眾、文案、圖片、預算都不同","每次只改變一個變數（例如只換圖片，其他條件相同），才能知道是哪個因素影響了 CPA","隨機投放不同廣告，看哪個自然跑出來","先跑 A 版一週，再跑 B 版一週，比較 CPA"],ans:1,explain:"A/B 測試黃金原則：每次只改一個變數。如果同時改了受眾、圖片和文案，不知道是哪個因素讓 CPA 變好或變差。正確做法：控制組和實驗組只有一個變數不同，跑 3–5 天後比較 CPA，才能得出有意義的結論。"},
+const AQS = [
+  {q:"什麼是廣告的「CPA（每次獲客成本）」？計算方式是？",opts:["CPA = 廣告費 ÷ 曝光次數","CPA = 廣告費 ÷ 點擊次數","CPA = 廣告費 ÷ 實際完成預約（或詢問）的人數","CPA = 廣告費 ÷ 追蹤人數"],ans:2,explain:"CPA（Cost Per Acquisition）= 總廣告費 ÷ 獲得的預約或詢問數量。這是美業廣告最重要的核心指標。判斷標準：CPA 低於服務單價的 20% 才是健康的投放。"},
+  {q:"你的美睫首次體驗單價 980 元，廣告投了一週，CPA 是 450 元。你應該怎麼判斷？",opts:["CPA 450 元遠低於單價 980 元，廣告效益非常好，可以大幅加碼","CPA 450 元超過單價的 20%（196 元），代表廣告費偏高，需要優化受眾或文案","CPA 不重要，只看詢問數量就好","CPA 450 元是正常範圍，繼續維持即可"],ans:1,explain:"CPA 健康標準：低於服務單價的 20%。980 元的 20% 是 196 元。CPA 450 元代表廣告效率偏低，需要優化受眾精準度或廣告文案的說服力。"},
+  {q:"哪個做法最能有效降低廣告的 CPA？",opts:["直接增加廣告預算，讓更多人看到廣告","縮小受眾精準度＋優化廣告文案（加入優惠和截止感）＋對猶豫者投再行銷","換一個廣告版位，改投 Messenger 廣告","換成影片廣告，因為影片一定比圖片有效"],ans:1,explain:"降低 CPA 的三個核心方法：①受眾更精準②廣告文案更有說服力③再行銷（對已接觸但未預約的溫流量再投，這批人 CPA 最低）。單純加預算不會降低 CPA。"},
+  {q:"什麼是 Meta 廣告的「像素（Pixel）」？為什麼美業工作室需要安裝？",opts:["像素是廣告的圖片格式，解析度要夠高才能過審","像素是安裝在你網站或預約頁面的追蹤碼，記錄訪客行為，讓 Meta 知道誰完成了預約，用於優化轉換和建立再行銷受眾","像素只有大企業才需要，小工作室不需要","像素是用來追蹤競爭對手廣告效果的工具"],ans:1,explain:"Meta 像素安裝在預約頁面後，可以追蹤「完成預約」等關鍵行為，讓 Meta 系統優化廣告給更可能預約的人。沒有像素就無法做精準的轉換優化。"},
+  {q:"在 Meta 商業管理平台（Business Manager）裡，「資產」包含哪些？",opts:["只有廣告帳號","廣告帳號、Facebook 粉絲專頁、IG 帳號、像素、商品目錄、自訂受眾等","只有粉絲專頁和廣告帳號","只有像素和廣告帳號"],ans:1,explain:"Meta Business Manager 的資產包含：廣告帳號、Facebook 粉絲專頁、Instagram 帳號、Meta 像素、自訂受眾、商品目錄等。集中管理才能跨帳號使用受眾和像素，也方便未來找代操協助。"},
+  {q:"一個廣告跑了 14 天效果很好，之後 CPA 開始上升，最可能的原因是？",opts:["廣告預算不夠，需要加碼","Meta 演算法改版","廣告疲勞：同一批受眾已經看過太多次，新鮮感消失，點擊意願下降","競爭對手投了更多廣告"],ans:2,explain:"廣告疲勞（Ad Fatigue）是必然現象。同一批受眾看到同一個廣告超過 3–5 次後，CTR 下降、CPA 上升。解法：更換廣告素材但保留受眾設定，建議每 2–3 週更新一次素材。"},
+  {q:"什麼是廣告的「漏斗（Funnel）」結構？正確的三層描述是？",opts:["圖片廣告 → 影片廣告 → 文字廣告","冷流量（陌生人）→ 溫流量（接觸過你的人）→ 熱流量（再行銷轉換）","低預算測試 → 中預算 → 高預算","Facebook → Instagram → YouTube"],ans:1,explain:"廣告漏斗三層：頂層投冷流量，中層投溫流量，底層投熱流量再行銷。底層的 CPA 通常是頂層的 1/3，是最值得投的。三層要用不同素材和訴求，不能用同一支廣告打全部。"},
+  {q:"美業廣告的「A/B 測試」正確做法是什麼？",opts:["同時測試所有變數：受眾、文案、圖片、預算都不同","每次只改變一個變數（例如只換圖片，其他條件相同），才能知道是哪個因素影響了 CPA","隨機投放不同廣告，看哪個自然跑出來","先跑 A 版一週，再跑 B 版一週，比較 CPA"],ans:1,explain:"A/B 測試黃金原則：每次只改一個變數。如果同時改了受眾、圖片和文案，不知道是哪個因素讓 CPA 變好或變差。控制組和實驗組只有一個變數不同，跑 3–5 天後比較 CPA。"},
   {q:"你的廣告 CPM（每千次曝光成本）突然從 80 元漲到 200 元，最可能的原因是什麼？",opts:["你的廣告品質分數下降","節慶旺季（情人節、母親節、過年）讓所有品牌搶同一批受眾，競價變激烈","Meta 單方面調整了定價","你的受眾太精準，人數太少導致競爭"],ans:1,explain:"CPM 反映廣告版位的競爭激烈程度。節慶前後 CPM 通常漲 50–200%。策略：在旺季前 2 週提前布局廣告，累積足夠的學習數據，這樣旺季時的 CPA 比臨時搶版位低很多。"},
-  {q:"你的美業廣告每個月預算 10,000 元，最理想的分配比例是什麼？",opts:["全部投在一個最好的廣告組，集中火力","冷流量 60%（獲取新客）＋溫熱流量再行銷 30%（轉換猶豫者）＋測試新素材 10%","平均分給所有廣告組，不偏向任何一個","70% 投圖片廣告，30% 投影片廣告"],ans:1,explain:"成熟廣告策略：大部分預算用於開發新客，同時保留預算給再行銷（CPA 最低的部分），並留少量預算持續測試新素材。三個層次同時跑是最穩定的結構，再行銷雖然預算少，但往往帶來最高的 ROI。"}
+  {q:"你的美業廣告每個月預算 10,000 元，最理想的分配比例是什麼？",opts:["全部投在一個最好的廣告組，集中火力","冷流量 60%（獲取新客）＋溫熱流量再行銷 30%（轉換猶豫者）＋測試新素材 10%","平均分給所有廣告組，不偏向任何一個","70% 投圖片廣告，30% 投影片廣告"],ans:1,explain:"成熟廣告策略：大部分預算用於開發新客，同時保留預算給再行銷（CPA 最低的部分），並留少量預算持續測試新素材。三個層次同時跑是最穩定的結構，再行銷往往帶來最高的 ROI。"},
 ];
 
-const ST={b:{answers:{},submitted:false,score:0},a:{answers:{},submitted:false,score:0}};
-let curLv='b',student={};
+/* ═══════════════════════════════════════════════
+   State
+═══════════════════════════════════════════════ */
+const ST = {b:{answers:{},submitted:false,score:0}, a:{answers:{},submitted:false,score:0}};
+let curLv = 'b';
+let student = {};
+let admUnlocked = false;
+let localData = JSON.parse(localStorage.getItem('bq_students') || '[]');
 
+/* ═══════════════════════════════════════════════
+   Helper
+═══════════════════════════════════════════════ */
+function lvl(p){ return p>=0.9?'廣告高手':p>=0.7?'基礎扎實':p>=0.5?'觀念加強':'需補強'; }
+function cmt(p){
+  if(p>=0.9) return '非常好！你對 Meta 廣告邏輯掌握得很透徹，可以直接開始實際操作廣告帳號，或加入美業方舟 LINE 取得林可心老師的進一步輔導。';
+  if(p>=0.7) return '答對大部分，有幾個概念需要再釐清。重點複習答錯的題目解析，特別注意受眾設定和 CPA 優化邏輯，加入美業方舟 LINE 取得更多教學。';
+  if(p>=0.5) return '有一半答對，但廣告投放的底層邏輯還不夠清楚。建議把每道題目的解析仔細看完，並加入美業方舟官方 LINE 取得系統化學習資源。';
+  return '建議先從「受眾設定」和「CPA 計算」這兩個最基礎的概念學起，加入美業方舟官方 LINE，林可心老師有完整的廣告入門教學等你。';
+}
+function toast(msg){
+  const t=document.getElementById('toast'); t.textContent=msg; t.className='toast show';
+  setTimeout(()=>t.className='toast', 2600);
+}
+
+/* ═══════════════════════════════════════════════
+   Start quiz
+═══════════════════════════════════════════════ */
 function startQuiz(){
-  const name=document.getElementById('f-name').value.trim();
-  const phone=document.getElementById('f-phone').value.trim();
-  const email=document.getElementById('f-email').value.trim();
-  const shop=document.getElementById('f-shop').value.trim();
-  const type=document.getElementById('f-type').value;
-  const budget=document.getElementById('f-budget').value;
-  if(!name||!phone||!email||!shop||!type||!budget){showToast('請填寫所有必填欄位（＊）');return;}
-  student={name,phone,email,shop,type,budget,
-    city:document.getElementById('f-city').value||'—',
-    exp:document.getElementById('f-exp').value||'未填',
-    line:document.getElementById('f-line').value||'—'};
+  const name   = document.getElementById('f-name').value.trim();
+  const phone  = document.getElementById('f-phone').value.trim();
+  const email  = document.getElementById('f-email').value.trim();
+  const shop   = document.getElementById('f-shop').value.trim();
+  const type   = document.getElementById('f-type').value;
+  const budget = document.getElementById('f-budget').value;
+  if(!name||!phone||!email||!shop||!type||!budget){ toast('請填寫所有必填欄位（＊）'); return; }
+  student = {
+    name, phone, email,
+    line:   document.getElementById('f-line').value||'—',
+    shop, type,
+    city:   document.getElementById('f-city').value||'—',
+    budget,
+    exp:    document.getElementById('f-exp').value||'未填',
+    timestamp: new Date().toLocaleString('zh-TW'),
+  };
   document.getElementById('reg-card').style.display='none';
   document.getElementById('quiz-card').style.display='block';
-  document.getElementById('q-av').textContent=name.charAt(0);
-  document.getElementById('q-name').textContent=`${name}｜${shop}`;
-  document.getElementById('q-info').textContent=`${type} · ${student.city} · 月預算：${budget}`;
-  renderQs('b');renderQs('a');updProg();
+  document.getElementById('q-av').textContent = name.charAt(0);
+  document.getElementById('q-name').textContent = `${name}｜${shop}`;
+  document.getElementById('q-info').textContent = `${type} · ${student.city} · 月預算：${budget}`;
+  renderQs('b'); renderQs('a'); updProg();
 }
 
 function renderQs(lv){
   const qs=lv==='b'?BQS:AQS;
-  const bc=lv==='b'?'qb-b':'qb-a';
-  const lb=lv==='b'?'基礎':'進階';
-  document.getElementById('lv-'+lv).innerHTML=qs.map((q,qi)=>`
+  const bc=lv==='b'?'qb-b':'qb-a', lb=lv==='b'?'基礎':'進階';
+  document.getElementById('lv-'+lv).innerHTML = qs.map((q,qi)=>`
     <div class="q-block" id="${lv}q${qi}">
       <div class="q-top"><span class="q-badge ${bc}">${lb} Q${qi+1}</span><span class="q-text">${q.q}</span></div>
       <div class="opts">${q.opts.map((o,oi)=>`
@@ -362,14 +502,14 @@ function renderQs(lv){
 }
 
 function pick(lv,qi,oi){
-  if(ST[lv].submitted)return;
+  if(ST[lv].submitted) return;
   const prev=ST[lv].answers[qi];
-  if(prev!==undefined)document.getElementById(`${lv}q${qi}o${prev}`).className='opt';
+  if(prev!==undefined) document.getElementById(`${lv}q${qi}o${prev}`).className='opt';
   ST[lv].answers[qi]=oi;
   document.getElementById(`${lv}q${qi}o${oi}`).className='opt picked';
   updProg();
   const total=lv==='b'?BQS.length:AQS.length;
-  document.getElementById('sub-btn').disabled=Object.keys(ST[lv].answers).length<total;
+  document.getElementById('sub-btn').disabled = Object.keys(ST[lv].answers).length < total;
 }
 
 function updProg(){
@@ -383,26 +523,28 @@ function swLv(lv,btn){
   curLv=lv;
   document.querySelectorAll('.lv-c').forEach(el=>el.classList.remove('on'));
   document.querySelectorAll('.lt').forEach(el=>el.classList.remove('on'));
-  document.getElementById('lv-'+lv).classList.add('on');btn.classList.add('on');
+  document.getElementById('lv-'+lv).classList.add('on'); btn.classList.add('on');
   const qs=lv==='b'?BQS:AQS;
-  document.getElementById('sub-btn').disabled=Object.keys(ST[lv].answers).length<qs.length;
-  document.getElementById('sub-btn').style.display=ST[lv].submitted?'none':'block';
+  document.getElementById('sub-btn').disabled = Object.keys(ST[lv].answers).length < qs.length;
+  document.getElementById('sub-btn').style.display = ST[lv].submitted ? 'none' : 'block';
   updProg();
 }
 
+/* ═══════════════════════════════════════════════
+   Submit
+═══════════════════════════════════════════════ */
 function submitLv(){
-  const lv=curLv;
-  const qs=lv==='b'?BQS:AQS;
+  const lv=curLv, qs=lv==='b'?BQS:AQS;
   ST[lv].submitted=true;
   let correct=0;
   qs.forEach((q,qi)=>{
-    const chosen=ST[lv].answers[qi],ok=chosen===q.ans;
-    if(ok)correct++;
+    const chosen=ST[lv].answers[qi], ok=chosen===q.ans;
+    if(ok) correct++;
     q.opts.forEach((_,oi)=>{
       const el=document.getElementById(`${lv}q${qi}o${oi}`);
-      if(oi===q.ans&&oi===chosen)el.className='opt correct';
-      else if(oi===chosen&&!ok)el.className='opt wrong';
-      else if(oi===q.ans)el.className='opt correct';
+      if(oi===q.ans&&oi===chosen) el.className='opt correct';
+      else if(oi===chosen&&!ok) el.className='opt wrong';
+      else if(oi===q.ans) el.className='opt correct';
       else el.className='opt';
     });
     const fb=document.getElementById(`${lv}q${qi}fb`);
@@ -411,34 +553,80 @@ function submitLv(){
   });
   ST[lv].score=correct;
   document.getElementById('sub-btn').style.display='none';
-  const pct=Math.round(correct/qs.length*100);
+  const p=correct/qs.length;
   const panel=document.getElementById('score-'+lv);
   panel.className='score-panel show';
   document.getElementById('sn-'+lv).textContent=correct;
-  document.getElementById('sp-'+lv).textContent=pct+'%';
-  let title,comment;
-  if(pct>=90){title='廣告高手';comment='非常好！你對 Meta 廣告邏輯掌握得很透徹，可以直接開始實際操作廣告帳號，或加入美業方舟 LINE 取得林可心老師的進一步輔導。';}
-  else if(pct>=70){title='基礎扎實';comment='答對大部分，有幾個概念需要再釐清。重點複習答錯的題目解析，特別注意受眾設定和 CPA 優化邏輯。歡迎加入美業方舟 LINE 取得更多教學。';}
-  else if(pct>=50){title='觀念需要加強';comment='有一半答對，但廣告投放的底層邏輯還不夠清楚。建議把每道題目的解析仔細看完，並加入美業方舟官方 LINE 取得系統化學習資源。';}
-  else{title='從頭建立廣告觀念';comment='建議先從「受眾設定」和「CPA 計算」這兩個最基礎的概念學起。加入美業方舟官方 LINE，林可心老師有完整的廣告入門教學等你。';}
-  document.getElementById('st-'+lv).textContent=title;
-  document.getElementById('sc-'+lv).textContent=comment;
+  document.getElementById('sp-'+lv).textContent=Math.round(p*100)+'%';
+  document.getElementById('st-'+lv).textContent=lvl(p);
+  document.getElementById('sc-'+lv).textContent=cmt(p);
   panel.scrollIntoView({behavior:'smooth',block:'start'});
+  syncToSheet(lv);
 }
 
-function goAdv(){
-  swLv('a',document.querySelectorAll('.lt')[1]);
-  document.getElementById('quiz-card').scrollIntoView({behavior:'smooth',block:'start'});
+/* ═══════════════════════════════════════════════
+   Google Sheet sync  (text/plain bypasses CORS preflight)
+═══════════════════════════════════════════════ */
+function syncToSheet(lv){
+  const sy=document.getElementById('sy-'+lv);
+  saveLocal(); // always save local first
+  if(!GS_URL){
+    sy.className='sync-box show sy-no';
+    sy.textContent='⚠ 未設定 Google Sheet 連結，資料已儲存在本地';
+    return;
+  }
+  sy.className='sync-box show sy-ing'; sy.textContent='同步中…';
+  const payload = JSON.stringify({
+    ...student,
+    basicScore: ST.b.submitted ? ST.b.score : null,
+    advScore:   ST.a.submitted ? ST.a.score : null,
+  });
+  // Use text/plain to bypass CORS preflight on Google Apps Script
+  fetch(GS_URL, {
+    method: 'POST',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: payload,
+  })
+  .then(r=>r.text())
+  .then(t=>{
+    try{
+      const d=JSON.parse(t);
+      if(d.status==='ok'){
+        sy.className='sync-box show sy-ok';
+        sy.textContent='✓ 成績已即時同步至 Google Sheet';
+      } else throw new Error(d.msg||'error');
+    } catch(e){ throw e; }
+  })
+  .catch(()=>{
+    sy.className='sync-box show sy-no';
+    sy.textContent='⚠ 同步失敗，資料已保存在本地備份';
+  });
 }
 
+function saveLocal(){
+  const rec = {
+    ...student,
+    basicScore: ST.b.submitted ? ST.b.score : null,
+    advScore:   ST.a.submitted ? ST.a.score : null,
+    savedAt: new Date().toLocaleString('zh-TW'),
+  };
+  const idx = localData.findIndex(s=>s.email===student.email&&s.phone===student.phone);
+  if(idx>=0) localData[idx]=rec; else localData.push(rec);
+  localStorage.setItem('bq_students', JSON.stringify(localData));
+  updAdmStats();
+}
+
+/* ═══════════════════════════════════════════════
+   Screenshot
+═══════════════════════════════════════════════ */
 function buildSC(){
-  const bD=ST.b.submitted,aD=ST.a.submitted;
+  const bD=ST.b.submitted, aD=ST.a.submitted;
   document.getElementById('sc-chips').innerHTML=[
     `<span class="sc-chip">${student.name}</span>`,
     `<span class="sc-chip">${student.shop}</span>`,
     `<span class="sc-chip">${student.type}</span>`,
     `<span class="sc-chip">${student.city}</span>`,
-    `<span class="sc-chip">月預算：${student.budget}</span>`
+    `<span class="sc-chip">月預算：${student.budget}</span>`,
   ].join('');
   let g='';
   if(bD){const p=Math.round(ST.b.score/10*100);g+=`<div class="sc-sb"><div class="sc-sl">基礎篇</div><div class="sc-sv">${ST.b.score}/10</div><div class="sc-ss">${p}%</div></div>`;}
@@ -448,11 +636,11 @@ function buildSC(){
     g+=`<div class="sc-sb" style="grid-column:1/-1"><div class="sc-sl">總分</div><div class="sc-sv">${t}/20</div><div class="sc-ss">綜合得分 ${p}%</div></div>`;}
   document.getElementById('sc-scores').innerHTML=g;
   let b='';
-  if(bD){const p=Math.round(ST.b.score/10*100);b+=`<span class="sc-lv-b">基礎篇 ${p>=90?'優秀':p>=70?'良好':p>=50?'加強':'需補強'}</span>`;}
-  if(aD){const p=Math.round(ST.a.score/10*100);b+=`<span class="sc-lv-a">進階篇 ${p>=90?'優秀':p>=70?'良好':p>=50?'加強':'需補強'}</span>`;}
+  if(bD) b+=`<span class="sc-lv-b">基礎篇 ${lvl(ST.b.score/10)}</span>`;
+  if(aD) b+=`<span class="sc-lv-a">進階篇 ${lvl(ST.a.score/10)}</span>`;
   document.getElementById('sc-badges').innerHTML=b;
   const lv=aD?'a':bD?'b':null;
-  if(lv)document.getElementById('sc-comment').textContent=document.getElementById('sc-'+lv).querySelector('.score-comment').textContent;
+  if(lv) document.getElementById('sc-cmt').textContent=document.getElementById('sc-'+lv).querySelector('.score-cmt').textContent;
   document.getElementById('sc-dt').textContent=new Date().toLocaleDateString('zh-TW');
 }
 
@@ -465,13 +653,13 @@ function captureScore(){
       card.className='sc-card';
       const a=document.createElement('a');
       a.download=`美業廣告測驗成績_${student.name}_${new Date().toLocaleDateString('zh-TW')}.png`;
-      a.href=canvas.toDataURL('image/png');a.click();
-      showToast('成績圖片已下載');
+      a.href=canvas.toDataURL('image/png'); a.click();
+      toast('成績圖片已下載');
     });
   },300);
 }
 
-function captureAndShare(){
+function shareScore(){
   buildSC();
   const card=document.getElementById('sc-card');
   card.className='sc-card show';
@@ -481,31 +669,222 @@ function captureAndShare(){
       canvas.toBlob(async blob=>{
         const file=new File([blob],`美業廣告測驗成績_${student.name}.png`,{type:'image/png'});
         if(navigator.share&&navigator.canShare({files:[file]})){
-          try{await navigator.share({files:[file],title:'美業方舟 Meta 廣告投放能力測驗',text:`${student.name} 完成了美業方舟廣告投放能力測驗！`});}
-          catch(e){dlFB(canvas);}
-        }else{dlFB(canvas);showToast('已下載成績，可手動分享至社群');}
+          try{ await navigator.share({files:[file],title:'美業方舟 Meta 廣告投放能力測驗',text:`${student.name} 完成了美業方舟廣告投放能力測驗！`}); }
+          catch(e){ dlCanvas(canvas); }
+        } else { dlCanvas(canvas); toast('已下載成績圖片，可手動分享至社群'); }
       },'image/png');
     });
   },300);
 }
+function dlCanvas(c){const a=document.createElement('a');a.download=`美業廣告測驗成績_${student.name}.png`;a.href=c.toDataURL('image/png');a.click();}
 
-function dlFB(c){const a=document.createElement('a');a.download=`美業廣告測驗成績_${student.name}.png`;a.href=c.toDataURL('image/png');a.click();}
+/* ═══════════════════════════════════════════════
+   學員下載個人 Excel
+═══════════════════════════════════════════════ */
+function dlMyExcel(){
+  const rows=[
+    ['美業方舟 Meta 廣告投放能力測驗 — 個人成績報告'],
+    [],['學員資料'],
+    ['姓名',student.name],['電話',student.phone],['電子郵件',student.email],
+    ['Line ID',student.line],['店家名稱',student.shop],['美業類型',student.type],
+    ['所在城市',student.city],['月廣告預算',student.budget],['廣告投放經驗',student.exp],
+    ['作答時間',student.timestamp],[],['成績結果'],
+    ['篇章','得分','滿分','百分比','評級'],
+  ];
+  if(ST.b.submitted){ const p=ST.b.score/10; rows.push(['基礎篇',ST.b.score,10,Math.round(p*100)+'%',lvl(p)]); }
+  if(ST.a.submitted){ const p=ST.a.score/10; rows.push(['進階篇',ST.a.score,10,Math.round(p*100)+'%',lvl(p)]); }
+  if(ST.b.submitted&&ST.a.submitted){ const t=ST.b.score+ST.a.score; rows.push(['總計',t,20,Math.round(t/20*100)+'%','']); }
+  rows.push([],[],['老師 LINE：lin.ee/5MNiupN'],['美業方舟 · 林可心老師']);
+  const wb=XLSX.utils.book_new();
+  const ws=XLSX.utils.aoa_to_sheet(rows);
+  ws['!cols']=[{wch:16},{wch:22},{wch:8},{wch:8},{wch:12}];
+  XLSX.utils.book_append_sheet(wb,ws,'我的成績');
+  XLSX.writeFile(wb,`美業廣告測驗_${student.name}_${new Date().toLocaleDateString('zh-TW').replace(/\//g,'-')}.xlsx`);
+  toast('個人成績 Excel 已下載');
+}
 
+/* ═══════════════════════════════════════════════
+   Admin
+═══════════════════════════════════════════════ */
+function toggleAdm(){
+  const p=document.getElementById('adm-panel');
+  const showing = p.className.includes('show');
+  p.className = showing ? 'adm-panel' : 'adm-panel show';
+  if(!showing){ p.scrollIntoView({behavior:'smooth',block:'start'}); }
+  if(!showing && GS_URL){ document.getElementById('gs-url').value=GS_URL; document.getElementById('url-saved').className='url-saved show'; }
+  updAdmStats();
+}
+
+function admLogin(){
+  const pw=document.getElementById('adm-pw').value;
+  if(pw===ADMIN_PW){
+    admUnlocked=true;
+    document.getElementById('adm-login-wrap').style.display='none';
+    document.getElementById('adm-content').className='adm-content show';
+    if(GS_URL){ document.getElementById('gs-url').value=GS_URL; document.getElementById('url-saved').className='url-saved show'; }
+    updAdmStats(); refreshTable();
+    toast('已登入管理後台');
+  } else { toast('密碼錯誤'); }
+}
+
+function saveGsUrl(){
+  const val=document.getElementById('gs-url').value.trim();
+  if(!val){ toast('請輸入 Apps Script 網址'); return; }
+  GS_URL=val; localStorage.setItem('gs_url',val);
+  document.getElementById('url-saved').className='url-saved show';
+  toast('Google Sheet 連結已儲存');
+}
+
+function updAdmStats(){
+  const s=localData;
+  document.getElementById('adm-count').textContent=`共 ${s.length} 位學員`;
+  document.getElementById('as-tot').textContent=s.length;
+  document.getElementById('as-b').textContent=s.filter(x=>x.basicScore!==null).length;
+  document.getElementById('as-a').textContent=s.filter(x=>x.advScore!==null).length;
+  const bs=s.filter(x=>x.basicScore!==null).map(x=>x.basicScore);
+  document.getElementById('as-avg').textContent=bs.length?(bs.reduce((a,b)=>a+b,0)/bs.length).toFixed(1):'—';
+}
+
+function refreshTable(){
+  if(!admUnlocked) return;
+  const wrap=document.getElementById('tbl-wrap');
+  if(!localData.length){
+    wrap.innerHTML='<div class="adm-empty">尚無學員資料<br><small>學員完成問卷後資料自動出現在這裡（同時同步至 Google Sheet）</small></div>';
+    return;
+  }
+  const pc=s=>s==='廣告高手'?'pill-hi':s==='需補強'?'pill-lo':'pill-mid';
+  wrap.innerHTML=`<table class="adm-tbl">
+    <thead><tr>
+      <th>姓名</th><th>電話</th><th>電郵</th><th>Line</th>
+      <th>店家</th><th>類型</th><th>城市</th><th>月預算</th><th>廣告經驗</th>
+      <th>基礎</th><th>進階</th><th>總分</th><th>時間</th>
+    </tr></thead>
+    <tbody>${localData.map(s=>{
+      const bL=s.basicScore!==null?lvl(s.basicScore/10):'—';
+      const aL=s.advScore!==null?lvl(s.advScore/10):'—';
+      const tot=s.basicScore!==null&&s.advScore!==null?s.basicScore+s.advScore:s.basicScore!==null?s.basicScore:'—';
+      return `<tr>
+        <td>${s.name}</td><td>${s.phone}</td><td style="max-width:120px;overflow:hidden;text-overflow:ellipsis">${s.email}</td><td>${s.line}</td>
+        <td>${s.shop}</td><td>${s.type}</td><td>${s.city}</td><td style="font-size:11px">${s.budget}</td><td style="font-size:11px">${s.exp}</td>
+        <td>${s.basicScore!==null?s.basicScore+'/10':'-'} <span class="pill ${pc(bL)}">${bL!=='—'?bL:''}</span></td>
+        <td>${s.advScore!==null?s.advScore+'/10':'-'} ${s.advScore!==null?`<span class="pill ${pc(aL)}">${aL}</span>`:''}</td>
+        <td><strong>${tot!=='—'?tot+'/20':'-'}</strong></td>
+        <td style="font-size:10px;min-width:90px">${(s.timestamp||s.savedAt||'').replace(/\//g,'-')}</td>
+      </tr>`;
+    }).join('')}</tbody>
+  </table>`;
+}
+
+/* ─ Excel export (老師完整版) ─ */
+function exportExcel(){
+  if(!localData.length){ toast('尚無資料'); return; }
+  const headers=['姓名','電話','電子郵件','Line ID','作答時間','店家名稱','美業類型','所在城市','月廣告預算','廣告投放經驗','基礎得分','基礎百分比','基礎評級','進階得分','進階百分比','進階評級','總分','總百分比'];
+  const rows=localData.map(s=>{
+    const bP=s.basicScore!==null?s.basicScore/10:null;
+    const aP=s.advScore!==null?s.advScore/10:null;
+    const tot=bP!==null&&aP!==null?s.basicScore+s.advScore:bP!==null?s.basicScore:null;
+    return [
+      s.name,s.phone,s.email,s.line,s.timestamp||s.savedAt,
+      s.shop,s.type,s.city,s.budget,s.exp,
+      bP!==null?s.basicScore:'-',
+      bP!==null?Math.round(bP*100)+'%':'-',
+      bP!==null?lvl(bP):'-',
+      aP!==null?s.advScore:'-',
+      aP!==null?Math.round(aP*100)+'%':'-',
+      aP!==null?lvl(aP):'-',
+      tot!==null?tot:'-',
+      tot!==null?(bP!==null&&aP!==null?Math.round(tot/20*100):Math.round(tot/10*100))+'%':'-',
+    ];
+  });
+  const wb=XLSX.utils.book_new();
+
+  // Sheet 1 - 學員資料總表
+  const ws1=XLSX.utils.aoa_to_sheet([
+    ['美業方舟｜Meta 廣告投放能力測驗  學員資料總表'],
+    [`匯出時間：${new Date().toLocaleString('zh-TW')}  ｜  共 ${localData.length} 位學員`],
+    [],
+    headers,
+    ...rows,
+  ]);
+  ws1['!cols']=[{wch:10},{wch:14},{wch:26},{wch:12},{wch:18},{wch:18},{wch:14},{wch:10},{wch:16},{wch:14},{wch:8},{wch:10},{wch:10},{wch:8},{wch:10},{wch:10},{wch:6},{wch:10}];
+  XLSX.utils.book_append_sheet(wb,ws1,'學員資料總表');
+
+  // Sheet 2 - 統計分析
+  const bs=localData.filter(x=>x.basicScore!==null).map(x=>x.basicScore);
+  const as=localData.filter(x=>x.advScore!==null).map(x=>x.advScore);
+  const statRows=[
+    ['美業方舟 Meta 廣告投放能力測驗 — 統計分析'],
+    [`匯出時間：${new Date().toLocaleString('zh-TW')}`],
+    [],
+    ['總覽',''],
+    ['學員總人數', localData.length],
+    ['完成基礎篇', bs.length],
+    ['完成進階篇', as.length],
+    ['兩篇皆完成', localData.filter(x=>x.basicScore!==null&&x.advScore!==null).length],
+    [],
+    ['基礎篇分析',''],
+    ['平均分數', bs.length?(bs.reduce((a,b)=>a+b,0)/bs.length).toFixed(1):'—'],
+    ['平均百分比', bs.length?Math.round(bs.reduce((a,b)=>a+b,0)/bs.length/10*100)+'%':'—'],
+    ['最高分', bs.length?Math.max(...bs):'—'],
+    ['最低分', bs.length?Math.min(...bs):'—'],
+    ['廣告高手（≥90%）', bs.filter(x=>x>=9).length],
+    ['基礎扎實（70–89%）', bs.filter(x=>x>=7&&x<9).length],
+    ['觀念加強（50–69%）', bs.filter(x=>x>=5&&x<7).length],
+    ['需補強（<50%）', bs.filter(x=>x<5).length],
+    [],
+    ['進階篇分析',''],
+    ['平均分數', as.length?(as.reduce((a,b)=>a+b,0)/as.length).toFixed(1):'—'],
+    ['平均百分比', as.length?Math.round(as.reduce((a,b)=>a+b,0)/as.length/10*100)+'%':'—'],
+    ['最高分', as.length?Math.max(...as):'—'],
+    ['最低分', as.length?Math.min(...as):'—'],
+    ['廣告高手（≥90%）', as.filter(x=>x>=9).length],
+    ['需補強（<50%）', as.filter(x=>x<5).length],
+    [],
+    ['月廣告預算分布',''],
+    ...['尚未投放廣告','1,000 元以下','1,000–3,000 元','3,000–8,000 元','8,000–20,000 元','20,000 元以上']
+      .map(b=>[b, localData.filter(s=>s.budget===b).length]),
+    [],
+    ['美業類型分布',''],
+    ...Object.entries(localData.reduce((acc,s)=>{ acc[s.type]=(acc[s.type]||0)+1; return acc; },{})),
+  ];
+  const ws2=XLSX.utils.aoa_to_sheet(statRows);
+  ws2['!cols']=[{wch:22},{wch:14}];
+  XLSX.utils.book_append_sheet(wb,ws2,'統計分析');
+
+  XLSX.writeFile(wb,`美業廣告測驗_學員資料_${new Date().toLocaleDateString('zh-TW').replace(/\//g,'-')}.xlsx`);
+  toast('完整 Excel 已匯出');
+}
+
+function exportCSV(){
+  if(!localData.length){ toast('尚無資料'); return; }
+  const h=['姓名','電話','Email','Line','店家','類型','城市','月預算','廣告經驗','基礎分','進階分','總分','時間'];
+  const rows=localData.map(s=>[s.name,s.phone,s.email,s.line,s.shop,s.type,s.city,s.budget,s.exp,s.basicScore??'',s.advScore??'',s.basicScore!==null&&s.advScore!==null?s.basicScore+s.advScore:'',s.timestamp||'']
+    .map(v=>`"${String(v).replace(/"/g,'""')}"`).join(','));
+  const csv='\ufeff'+[h.join(','),...rows].join('\n');
+  const a=document.createElement('a');
+  a.download=`美業廣告測驗_${new Date().toLocaleDateString('zh-TW').replace(/\//g,'-')}.csv`;
+  a.href='data:text/csv;charset=utf-8,'+encodeURIComponent(csv); a.click();
+  toast('CSV 已匯出');
+}
+
+function clearLocal(){
+  if(!confirm('確定要清除所有本地學員資料嗎？此操作無法復原。Google Sheet 的資料不受影響。')) return;
+  localData=[]; localStorage.removeItem('bq_students');
+  updAdmStats(); refreshTable(); toast('本地資料已清除');
+}
+
+/* ─ Misc ─ */
+function goAdv(){ swLv('a',document.querySelectorAll('.lt')[1]); document.getElementById('quiz-card').scrollIntoView({behavior:'smooth',block:'start'}); }
 function rstLv(lv){
-  ST[lv]={answers:{},submitted:false,score:0};
-  renderQs(lv);
+  ST[lv]={answers:{},submitted:false,score:0}; renderQs(lv);
   document.getElementById('score-'+lv).className='score-panel';
   document.getElementById('sub-btn').style.display='block';
   document.getElementById('sub-btn').disabled=true;
-  updProg();
-  document.querySelector('.quiz-top').scrollIntoView({behavior:'smooth'});
+  updProg(); document.querySelector('.quiz-top').scrollIntoView({behavior:'smooth'});
 }
 
-function showToast(msg){
-  const t=document.getElementById('toast');
-  t.textContent=msg;t.className='toast show';
-  setTimeout(()=>t.className='toast',2500);
-}
+// Init
+updAdmStats();
 </script>
 </body>
 </html>
